@@ -6,10 +6,45 @@ const sortRating = require("../utils/SortsRating");
 const sortTitle = require("../utils/SortTitle");
 const router = Router();
 
-router.get("/", async function (req, res) {
+router.get('/', async (req,res) => {
   const books = await Books.find({}).populate(["authors", "genres"]);
   res.json(books);
+})
+
+router.get("/search", async function (req, res) {
+  const {title, name} = req.query;
+  try{
+    
+    if (title){
+      const booksNameFilter = await Books.find({title: title}).populate(["authors", "genres"]);
+      res.status(200).json(booksNameFilter)
+    } else if(name) {
+        const authorNameFilter = await Author.find({name: name}).populate("books");
+        res.status(200).json(authorNameFilter)
+    } else {
+      const books = await Books.find({}).populate(["authors", "genres"]);
+      res.json(books);
+    }
+    
+  } catch (err){
+    res.send(err.message);  
+  }
 });
+
+router.get('/search/:title', async function (req,res){
+  const {title} = req.params;
+  try{
+    if (title){
+      const booksNameFilter = await Books.find({title: title}).populate(["authors", "genres"]);
+      res.status(200).json(booksNameFilter)
+    } else{
+      const books = await Books.find({}).populate(["authors", "genres"]);
+      res.json(books);
+    }
+  } catch(err){
+    res.send(err.message)
+  }
+})
 
 router.get("/alf/:order", async function (req, res) {
   const { order } = req.params;
