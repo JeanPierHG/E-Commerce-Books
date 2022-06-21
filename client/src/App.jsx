@@ -1,44 +1,31 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import './App.css';
+import React from 'react';
+import {BrowserRouter , Routes , Route} from 'react-router-dom';
+import  Home  from './components/Home';
+import AboutUs from './components/AboutUs';
+import FAQ from './components/FAQ';
+import { getBooks } from './actions';
+import { useDispatch , useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const dispatch = useDispatch() 
+
+  useEffect(()=> {    
+    dispatch(getBooks())
+    },[dispatch]) 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+        {/* <Route exact path='/' element= {<LandingPage/>}/> */}
+        <Route exact path='/home' element= {<Home/>}/>
+        <Route exact path='/aboutus' element={<AboutUs/>}/>
+        <Route exact path='/faq' element={<FAQ/>}/>
+        {/* <Route exact path='/book/:id' element={<DetailBook/>} />        */}
+    </Routes>
+    </BrowserRouter>
   )
 }
 
