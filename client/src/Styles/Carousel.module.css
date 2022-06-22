@@ -1,0 +1,40 @@
+.container{
+    padding: 20px;
+    position: relative;
+    display:flex;
+    align-content: center;
+    flex: row;
+    margin: 15px;
+    background-color: rgba(128, 128, 128, 0.431);
+    height: 34em;
+}
+.img{
+    position: absolute;
+    left:15em;
+    border-radius: 6px;
+    align-content: center;
+    opacity:0;
+    height: 30em;
+    transition:1s;   
+}
+.loaded{
+    position: absolute;
+    left:15em;
+    border-radius: 6px;
+    align-content: center;
+    opacity:1;
+    height: 30em;
+    transition:1s;  
+}
+.button1{
+    position: absolute;
+    height: 30px;
+    left:8em;
+    top:13em;
+}
+.button2{
+    position: absolute;
+    height: 30px;
+    left:24em;
+    top:13em;
+}

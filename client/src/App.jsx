@@ -9,8 +9,6 @@ import  Home  from './components/Home';
 import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ'
 import Landing from './components/Landing';
-
-import NavBar from './components/NavBar';
 import Author from './components/Author';
 import BookDetails from './components/BookDetails';
 

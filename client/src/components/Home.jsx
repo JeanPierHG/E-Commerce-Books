@@ -6,6 +6,7 @@ import { getBooks } from '../actions';
 import Card from './Card';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
+import Carousel from './Carousel';
 
 export default function Home(){
 
@@ -17,7 +18,7 @@ return(
        <div >
       
         <SideBar/>
-
+        <Carousel/>
         <div >
             <div>
                 <select onChange={e => handleOrderByName(e)} defaultValue='default'>
@@ -53,7 +54,7 @@ return(
                 : <h5>Book Not Found!</h5>
                 }
             </div>
-            <SideBar/>
+           
             <BottomBar/>
         </div>
     </div>
