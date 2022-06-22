@@ -1,0 +1,27 @@
+
+.imageContainer {
+
+    max-height: 200px;
+    text-align: center;
+}
+
+.image {
+
+    text-align: center;
+    max-width: 50%;
+    height: auto;
+    align-items: center;
+
+}
+
+.container {
+    width: 325px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
+    overflow: hidden;
+    margin: 25px;
+    position: relative;
+    background: #fff;
+    max-width: 300px;
+}

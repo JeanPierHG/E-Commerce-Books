@@ -1,0 +1,27 @@
+
+.container {
+    background-color: rgb(16, 16, 131);
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+}
+
+.logo {
+    margin: 15px 15px 15px;
+}
+
+.inicio {
+    margin: 15px 15px 15px;
+}
+
+.select {
+    margin: 15px 15px 15px;
+}
+
+.autor {
+    margin: 15px 15px 15px;
+}
+
+.button {
+    margin: 15px 15px 15px;
+}
