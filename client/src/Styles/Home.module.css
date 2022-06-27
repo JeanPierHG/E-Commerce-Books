@@ -1,0 +1,57 @@
+.color {
+  height: 100%;
+  background: linear-gradient(
+    298.8deg,
+    rgba(204, 214, 38, 0.85) -59.75%,
+    rgba(27, 163, 168, 0.85) 26.91%,
+    rgba(55, 61, 81, 0.85) 98.72%
+  );
+}
+
+.home {
+  background: url('../imgs/Landing.jpg');
+  width: 100%;
+}
+
+.sideBar_containerCard {
+  display: flex;
+  justify-content: space-between;
+}
+.ubiOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p {
+  font-weight: bold;
+  color: white;
+}
+
+.options {
+  width: 160px;
+  height: 25px;
+  background-color: #77c9d4;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.options:hover {
+  cursor: pointer;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 70vw;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}

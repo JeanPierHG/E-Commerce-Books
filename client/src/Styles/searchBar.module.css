@@ -1,0 +1,17 @@
+
+.input{
+    font-size: 18px;
+    margin:3px;
+    position:relative;
+    opacity: 0.9;
+}
+.button{
+    font-size: 17px;
+    background-color:white;
+    height: 26px;
+    border:0;
+    transition: 500ms;
+}
+.button:hover{
+    background-color: #77C9D4;
+}

@@ -1,27 +1,27 @@
 
-.imageContainer {
 
-    max-height: 200px;
-    text-align: center;
+.container{
+    width: 10rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center center;
+    margin:15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #015249;
+    background-color: rgba(128, 128, 128, 0.289);
+    transition: 500ms;
 }
-
-.image {
-
-    text-align: center;
-    max-width: 50%;
-    height: auto;
-    align-items: center;
-
+.name{
+    color: #77c9d4;
+    text-decoration: none;
 }
-
-.container {
-    width: 325px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
-    overflow: hidden;
-    margin: 25px;
-    position: relative;
-    background: #fff;
-    max-width: 300px;
+.img{
+    width: 10rem;
+    height: 10rem;
+    border-radius:5px;
+}
+.container:hover{
+    transform:scale(1.05)
 }

@@ -1,25 +1,25 @@
-import React from 'react';
-import { getBooks } from '../actions';
-import CardBook from './CardBook';
-import SideBar from './SideBar';
-import BottomBar from './BottomBar'
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styles from '../Styles/Add.module.css'
 
-export default function Home(){
+export default function Add() {
+  return (
+    <div className={styles.add}>
+      <div className={styles.containerAdd}>
+        <div className={styles.actionsButtons}>
+          <Link to='/addauthor'>
+            <button className={styles.btn}>Agregar Autor</button>
+          </Link>
 
-    return(
-        <div>
-
-             <Link to="/addauthor">
-            <button>Add Author</button>
-            </Link>
-            <Link to="/addbook">
-            <button>Add Book</button>
-            </Link>
+          <Link to='/addbook'>
+            <button className={styles.btn}>Agregar Libro</button>
+          </Link>
         </div>
 
-        
-
-        
-    )
+        <Link to='/admin'>
+          <button className={`${styles.btn} ${styles.btnAdmin}`}>↼ Back</button>
+        </Link>
+      </div>
+    </div>
+  )
 }

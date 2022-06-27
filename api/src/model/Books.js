@@ -7,7 +7,7 @@ const libroSchema = new Schema({
   },
   authors: {
     type: Schema.Types.ObjectId,
-    ref: "Author",
+    ref: "Authors",
   },
   year: {
     type: Number,
@@ -46,4 +46,4 @@ const libroSchema = new Schema({
   },
 });
 
-module.exports = model("Book", libroSchema);
+module.exports = model("Books", libroSchema);

@@ -1,0 +1,51 @@
+.containerDelete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.grid img {
+  width: 250px;
+  height: 250px;
+}
+
+.containerItems {
+  text-align: center;
+}
+
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardItem button {
+  width: 35px;
+  height: 35px;
+  background: red;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.btnAdmin {
+  margin-top: 2rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

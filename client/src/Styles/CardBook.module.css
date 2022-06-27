@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+  width: 80%;
+  font-weight: bold;
+  height: 500px;
+}
+
+h2 {
+  color: white;
+  height: 2rem;
+  font-size: 1.2rem;
+}
+
+.img {
+  border-radius: 10px;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.containerRating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ratingIcon {
+  color: #ffd43b;
+}
+.rating {
+  color: #343a40;
+}
+.price {
+  font-size: 1.4rem;
+  color: white;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}

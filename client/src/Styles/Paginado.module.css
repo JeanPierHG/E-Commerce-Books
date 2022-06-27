@@ -1,0 +1,43 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 50px;
+  margin-top: 50px;
+}
+
+.btnNav {
+  background-color: #77c9d4;
+  width: 40px;
+  border: none;
+  border-radius: 5px;
+  height: 25px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: large;
+  color: black;
+}
+
+.btnNav:hover {
+  cursor: pointer;
+}
+
+.btnNav:active {
+  transform: translateY(2px);
+}
+
+.btnSel {
+  background-color: #015249;
+  color: white;
+  width: 40px;
+  border: none;
+  border-radius: 5px;
+  height: 25px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.btnSel:hover {
+  cursor: pointer;
+}

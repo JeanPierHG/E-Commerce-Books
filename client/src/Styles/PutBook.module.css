@@ -1,0 +1,50 @@
+.containerPutList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.grid img {
+  width: 250px;
+  height: 250px;
+}
+
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cardItem h5 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.btn {
+  background-color: #57bc90;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.btnAdmin {
+  margin-top: 2rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

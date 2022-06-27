@@ -1,0 +1,51 @@
+.container {
+  position: absolute;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  width: 100%;
+  height: 250px;
+  bottom: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.container2 {
+  display: flex;
+  padding-top: 50px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.payments {
+  display: flex;
+  align-items: center;
+}
+
+.networks {
+  display: flex;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+}
+
+.input {
+  height: 25%;
+}
+
+.btn {
+  border: none;
+  font-size: large;
+  margin-left: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #77c9d4;
+  transition: 0.5s;
+}
+
+.Link {
+  text-decoration: none;
+  color: #fff;
+}

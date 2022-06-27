@@ -1,15 +1,76 @@
-
-.imageContainer {
-
-    max-height: 200px;
-    text-align: center;
+.container {
+  height: 100%;
+  background: linear-gradient(
+    298.8deg,
+    rgba(204, 214, 38, 0.85) -59.75%,
+    rgba(27, 163, 168, 0.85) 26.91%,
+    rgba(55, 61, 81, 0.85) 98.72%
+  );
 }
 
-.image {
+.content {
+  display: flex;
+  align-items: center;
+  height: 300px;
+  width: 80%;
+  justify-content: space-around;
+  margin-left: 10%;
+  font-size: large;
+  font-weight: bold;
+}
 
-    text-align: center;
-    max-width: 50%;
-    height: auto;
-    align-items: center;
+.info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 1%;
+}
 
+.bio {
+  width: 50%;
+}
+
+.imageContainer {
+  max-height: 200px;
+  text-align: center;
+}
+
+.carrusel {
+  align-items: center;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.libro {
+  margin-left: 2%;
+}
+
+.btn {
+  font-size: large;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #77c9d4;
+  transition: 0.5s;
+}
+
+.btnUbi {
+  padding-top: 2%;
+  padding-left: 2%;
+}
+
+.btnImg:hover {
+  cursor: pointer;
+  background-color: #77c9d4;
+  transition: 0.5s;
+}
+
+.Link {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
 }

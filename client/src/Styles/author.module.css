@@ -1,0 +1,19 @@
+.authors{
+    background: url('../imgs/Landing.jpg');
+     width: 100%;
+}
+.container{
+    height: 100%;
+    background: linear-gradient(
+      298.8deg,
+      rgba(205, 214, 38, 0.396) -59.75%,
+      rgba(27, 163, 168, 0.869) 26.91%,
+      rgb(55, 61, 81) 98.72%
+    );
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.Link{
+    text-decoration: none;
+}

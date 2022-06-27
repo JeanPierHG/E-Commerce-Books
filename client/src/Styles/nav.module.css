@@ -1,27 +1,65 @@
-
 .container {
-    background-color: rgb(16, 16, 131);
-    display: flex;
-    margin: 0px;
-    justify-content: center;
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  top: 0px;
+  z-index: 100;
+  width: 100%;
+  height: 60px;
+  background: -webkit-linear-gradient(70deg, #77c9d4, #015249);
 }
 
 .logo {
-    margin: 15px 15px 15px;
+  margin: 15px;
+  font-weight: 700;
+  font-size: 30px;
+  color: #015249;
 }
-
-.inicio {
-    margin: 15px 15px 15px;
+.Link {
+  text-decoration: none;
 }
-
+.navItem {
+  color: white;
+  font-size: 23px;
+  margin: 15px;
+  position: relative;
+  opacity: 0.9;
+}
 .select {
-    margin: 15px 15px 15px;
+  color: white;
+  background-color: #086c60ab;
+  font-size: 23px;
+  margin: 15px;
+  position: relative;
+}
+.navItem:hover {
+  text-decoration: none;
 }
 
-.autor {
-    margin: 15px 15px 15px;
+.navItem::before {
+  content: '';
+  background: white;
+  height: 3px;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  transition: 0.3s;
+}
+.navItem:hover::before {
+  width: 100%;
 }
 
-.button {
-    margin: 15px 15px 15px;
+.navItem::after {
+  content: '';
+  background: white;
+  height: 3px;
+  width: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: 0.3s;
+}
+.navItem:hover::after {
+  width: 100%;
 }

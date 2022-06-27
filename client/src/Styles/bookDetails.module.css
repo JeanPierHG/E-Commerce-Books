@@ -1,0 +1,138 @@
+.container{
+    margin-top: 7rem;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    min-width: 50rem;
+}
+.space{
+    width: 100%;
+    height: 1rem;
+}
+.img{
+    box-shadow: 0 2px 5px #015249;
+    float:left;
+    width: 20%;
+    height: 30%;
+    margin: 2%;
+    border-radius: 4px;
+}
+
+.info{
+    position: relative;
+    bottom:50%;
+    border: 1px solid #015249;
+    background-color:#77C9D4;
+    overflow: hidden;
+    width: 55%;
+    max-height: 19rem;
+    padding: 10px;
+    border-radius: 7px;
+    transition:1s;
+    z-index: 1;
+}
+.info:hover{
+    max-height:30rem;
+}
+.title{
+    color:#015249 ;
+}
+
+.details{
+    display: flex;
+    position:relative;
+    /* left:4rem;
+    bottom:6rem; */
+    border-radius: 5px;
+    width:60%;
+    height: 4rem;
+    padding:3px;
+    border:1px solid grey
+}
+.detail{
+    margin-left:4rem;
+}
+.price{
+    color: orangered;
+    margin:2.1em
+}
+.buy{
+    background: -webkit-linear-gradient(70deg,#77C9D4,#015249);
+    border-radius: 6px;
+    height: 19rem;
+    padding: 3px;
+    position: relative;
+    align-content: center;
+    border:1px solid grey;
+    width: 15rem;
+}    
+
+.button{
+    z-index: 1;
+    position:relative;
+    font-size: 18px;
+    background-color:#77C9D4;
+    height: 3rem;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid 015249;
+    margin: 3px;
+    transition: 500ms;
+}
+ 
+.button::after{
+    content:"";
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background:#015249;
+    z-index:-1;
+    top:0;
+    left:0;
+    transition:transform 200ms ease-in;
+}
+.button::after{
+    transform: scaleX(0);
+    transform-origin:right;
+}
+.button:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.genres{
+    color:#015249;
+    background-color: #77C9D4;
+    font-size: 20px;
+    margin:15px;
+    position:relative;
+    opacity: 0.9;
+    border:0;
+  }
+  .genres:hover{
+    text-decoration:none;
+  }
+  .genres::after{
+    content:"";
+    background: #015249;
+    height: 3px;
+    width: 0;
+    position:absolute;
+    left:0;
+    bottom:0;
+    transition:0.3s;
+  }
+  .genres:hover::after{
+    width: 100%;
+  }
+
+
+.comments{
+    margin-top: 20rem;
+    background-color: grey;
+    width: 50%;
+}
+.rating{
+    width: 4rem;
+    height: 2rem;
+}

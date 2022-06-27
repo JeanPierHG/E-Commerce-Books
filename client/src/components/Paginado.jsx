@@ -1,16 +1,22 @@
+import styles from "../Styles/Paginado.module.css";
+
 export default function Paginado({ bookPerPage, books1, paginado, page }) {
   const pageNum = [];
 
   for (let i = 1; i <= Math.ceil(books1 / bookPerPage); i++) {
-    console.log("Entre aca:");
     pageNum.push(i);
   }
   return (
-    <div>
+    <div className={styles.nav}>
       {pageNum &&
         pageNum.map((num) => (
           <div key={num}>
-            <button onClick={() => paginado(num)}>{num}</button>
+            <button
+              className={num === page ? styles.btnSel : styles.btnNav}
+              onClick={() => paginado(num)}
+            >
+              {num}
+            </button>
           </div>
         ))}
     </div>

@@ -1,0 +1,42 @@
+.stock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.gridContainerBooks {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+
+  padding: 0;
+  list-style: none;
+}
+
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gridContainerBooks img {
+  width: 250px;
+  height: 250px;
+}
+
+.gridContainerBooks p {
+  margin: 0;
+}
+.btnAdmin {
+  margin-top: 2rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
