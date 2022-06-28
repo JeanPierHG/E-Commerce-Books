@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
 
 router.post('/addUser', async (req, res) => {
   const { nickname, name, email, picture, phone, address } = req.body
-  console.log(req.body)
   try {
     const isExistUser = await Users.findOne({ email })
     if (isExistUser) return res.json(isExistUser)
@@ -46,13 +45,21 @@ router.post('/addUser', async (req, res) => {
   }
 })
 
-router.post('/setAdmin/:id', async (req, res) => {
+router.post('/toggleAdmin/:id', async (req, res) => {
   const { id } = req.params
   try {
-    const user = await Users.findByIdAndUpdate(id, { isAdmin: true })
+    const user = await Users.findById(id)
     if (!user) throw new Error('The user not exists')
-    user.save()
-    res.send('The user is now admin')
+
+    if (user.isAdmin) {
+      user.isAdmin = false
+      await user.save()
+      return res.send('The user now is not admin')
+    } else {
+      user.isAdmin = true
+      await user.save()
+      return res.send('The user is now admin')
+    }
   } catch (error) {
     res.send(error.message)
   }
