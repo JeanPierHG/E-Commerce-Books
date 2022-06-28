@@ -45,6 +45,17 @@ router.post('/addUser', async (req, res) => {
   }
 })
 
+router.post('/updateUser/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    if (Object.keys(req.body).length === 0) throw new Error('Send propertys')
+    const user = await Users.findByIdAndUpdate(id, req.body, { new: 1 })
+    res.json(user)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 router.post('/toggleAdmin/:id', async (req, res) => {
   const { id } = req.params
   try {
