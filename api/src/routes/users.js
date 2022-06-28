@@ -40,7 +40,7 @@ router.post('/addUser', async (req, res) => {
 
     await newUser.save()
 
-    res.send('Succes create user!')
+    res.send(newUser)
   } catch (error) {
     res.status(404).send(error.message)
   }
