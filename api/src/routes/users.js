@@ -38,9 +38,9 @@ router.post('/addUser', async (req, res) => {
       isSuperAdmin,
     })
 
-    await newUser.save()
+    const user = await newUser.save()
 
-    res.send(newUser)
+    res.send(user)
   } catch (error) {
     res.status(404).send(error.message)
   }
