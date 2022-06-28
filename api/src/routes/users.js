@@ -23,7 +23,7 @@ router.post('/addUser', async (req, res) => {
   console.log(req.body)
   try {
     const isExistUser = await Users.findOne({ email })
-    if (isExistUser) throw new Error('User is ready exists')
+    if (isExistUser) return res.json(isExistUser)
 
     let isSuperAdmin = false
     if (email === 'guillermobr88@gmail.com') isSuperAdmin = true
