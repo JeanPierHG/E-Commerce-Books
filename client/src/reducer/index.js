@@ -7,7 +7,7 @@ const initialState = {
   authors: [],
   authorsAdmin:[],
   authorDetails: [],
-  
+  users:[],
 };
 
 
@@ -285,7 +285,16 @@ case 'ORDER_BY_NAME':
   return {
       ...state,
       books: booksAdminByOrderName
+
+
+      
   };
+
+  case "GET_USERS":
+    return {
+      ...state,
+      users: action.payload,
+  }  
 
 
     default:

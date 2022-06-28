@@ -10,7 +10,7 @@ import {
 
 
 export default function ProtectedRoute ({
-  isAuthenticated,
+  isAuthenticated,//isAuthenticated--> true
   redirectPath = '/home',
   children
 })

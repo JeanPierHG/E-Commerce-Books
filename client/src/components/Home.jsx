@@ -20,6 +20,7 @@ export default function Home() {
   const dispatch = useDispatch()
 
   const {user, isAuthenticated } = useAuth0()
+  console.log('userENHOME:',user)
 
 
   const allBooks = useSelector((state) => state.books);
@@ -72,10 +73,6 @@ export default function Home() {
  };
 
 
-//  useEffect(() => {
-//   dispatch(postUser(user));
-// }, [dispatch]);
-  
 
 return (
   <div className={styles.home}>

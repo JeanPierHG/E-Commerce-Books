@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors } from "./actions";
+import { getBooks, getAuthors , getUsers } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -46,24 +46,24 @@ function App() {
   const{ user, isAuthenticated , isLoading} = useAuth0()
 
 
-  const [users, setUsers] = useState(null);
+  // const [users, setUsers] = useState(null);
 
-  const handleLoginAdmin = () =>
-    setUsers({
-      id: "1",
-      name: "guille",
-      roles: ["admin"],
-    });
+  // const handleLoginAdmin = () =>
+  //   setUsers({
+  //     id: "1",
+  //     name: "guille",
+  //     roles: ["admin"],
+  //   });
 
-  const handleLogoutAdmin = () => setUsers(null);
+  // const handleLogoutAdmin = () => setUsers(null);
 
-  const handleLoginUser = () =>
-    setUsers({
-      id: "1",
-      name: "guille",
-      roles: ["user"],
-    });
-  const handleLogoutUser = () => setUsers(null);
+  // const handleLoginUser = () =>
+  //   setUsers({
+  //     id: "1",
+  //     name: "guille",
+  //     roles: ["user"],
+  //   });
+  // const handleLogoutUser = () => setUsers(null);
 
   useEffect(() => {
     dispatch(getBooks());
@@ -73,11 +73,17 @@ function App() {
     dispatch(getAuthors());
   }, [dispatch]);
 
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+
   return (
     <BrowserRouter>
       <NavBar />
       <div className="main-without-nav">
-        {users ? (
+        {/* {users ? (
           <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
         ) : (
           <button onClick={handleLoginAdmin}>Sign In Admin</button>
@@ -87,7 +93,7 @@ function App() {
           <button onClick={handleLogoutUser}>Sign Out User</button>
         ) : (
           <button onClick={handleLoginUser}>Sign In User</button>
-        )}
+        )} */}
         <Routes>
           <Route exact path="/" element={<Landing />} />
           <Route path="home" element={<Home />} />
