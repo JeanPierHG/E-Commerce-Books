@@ -65,12 +65,19 @@ router.post('/toggleAdmin/:id', async (req, res) => {
   }
 })
 
-router.post('/banned/:id', async (req, res) => {
+router.post('/toggleBanned/:id', async (req, res) => {
   const { id } = req.params
   try {
-    const user = await Users.findByIdAndUpdate(id, { isBanned: true })
-    user.save()
-    res.send('The user is banned!')
+    const user = await Users.findById(id)
+    if (user.isBanned) {
+      user.isBanned = false
+      await user.save()
+      return res.send('The user now is not banned')
+    } else {
+      user.isBanned = true
+      await user.save()
+      return res.send('The user is now banned')
+    }
   } catch (error) {
     res.send(error.message)
   }
