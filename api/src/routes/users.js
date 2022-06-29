@@ -137,9 +137,9 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
     user.favouritesBooks = user.favouritesBooks.filter(
       (b) => b._id !== book._id
     )
-    await user.save()
+    const userUpdate = await user.save()
 
-    res.send('Book successfully deleted')
+    res.send(userUpdate)
   } catch (error) {
     res.send(error.message)
   }
