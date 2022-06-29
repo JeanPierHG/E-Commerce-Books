@@ -26,21 +26,18 @@ const UserPerfil = () => {
 
     return (
         <div>
-            <h4>Bienvenido</h4>
-
-            <p>La gente exitosa tiene grandes bibliotecas. El resto tiene grandes pantallas de Television.</p>
-            <p><strong>Jim Rohn</strong></p>
+            <h3>Bienvenido</h3>
 
             {isAuthenticated && (
-            <div>
-                  {/* {JSON.stringify(user)}  */}
-
-                <img src={user.picture} alt={user.name}/>
-                <h2>{user.name}</h2>
-                <p>Email: {user.email}</p>
-            </div>
-        )}
        
+                <div>
+                    {/* {JSON.stringify(user)} */}
+
+                    <h5>{user.nickname}</h5>
+                    
+                </div>
+            )}
+
 
             <span>
                 <Link to='/user/datos'>

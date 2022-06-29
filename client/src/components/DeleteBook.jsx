@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { orderByNameAdminBooks } from '../actions'
 import SearchBarAdmin from './SearchBarAdmin'
-import AdminRefresh from './AdminRefresh'
+import AdminRefreshBooks from './AdminRefreshBooks'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -53,7 +53,7 @@ export default function DeleteBook() {
 
       <SearchBarAdmin/>
       
-      <AdminRefresh/>
+      <AdminRefreshBooks/>
 
       <div>
            <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
@@ -79,7 +79,7 @@ export default function DeleteBook() {
                   </li>
                 )
               })
-            : 'loading'}
+            : 'Resultado inexistente'}
         </ul>
       </div>
 

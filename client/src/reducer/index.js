@@ -5,9 +5,14 @@ const initialState = {
   booksAdmin:[],
   bookDetails: [], 
   authors: [],
+  authorsCopy: [],
   authorsAdmin:[],
   authorDetails: [],
   users:[],
+  usersCpoy:[],
+  userLogged:[],
+  cart:[],
+  render:[],
 };
 
 
@@ -37,119 +42,46 @@ function rootReducer(state = initialState, action) {
      
       authorsAdmin: action.payload
   } 
-
-      
-    // case "GET_BOOKS":
-      
-    //   const allBooks = action.payload;
-    //   let booksOrder =
-    //     action.genres === "All"
-    //       ? allBooks
-    //       : allBooks.filter((element) =>
-    //           element.genres.find((e) => e.genres === action.genres)
-    //         );
-      
-    //   if (action.price !== undefined) {
-    //     booksOrder =
-    //       action.price === "Asc"
-    //         ? booksOrder.sort(function (a, b) {
-    //             if (a.price > b.price) {
-    //               return 1;
-    //             }
-    //             if (b.price > a.price) {
-    //               return -1;
-    //             }
-    //             return 0;
-    //           })
-    //         : booksOrder.sort(function (a, b) {
-    //             if (a.price > b.price) {
-    //               return -1;
-    //             }
-    //             if (b.price > a.price) {
-    //               return 1;
-    //             }
-    //             return 0;
-    //           });
-    //   } else if (action.title !== undefined) {
-    //     booksOrder =
-    //       action.title === "Asc"
-    //         ? booksOrder.sort(function (a, b) {
-    //             if (a.title.toLowerCase() > b.title.toLowerCase()) {
-    //               return 1;
-    //             }
-    //             if (b.title.toLowerCase() > a.title.toLowerCase()) {
-    //               return -1;
-    //             }
-    //             return 0;
-    //           })
-    //         : booksOrder.sort(function (a, b) {
-    //             if (a.title.toLowerCase() > b.title.toLowerCase()) {
-    //               return -1;
-    //             }
-    //             if (b.title.toLowerCase() > a.title.toLowerCase()) {
-    //               return 1;
-    //             }
-    //             return 0;
-    //           });
-    //   } /* else {
-    //     action.rating === "Asc"
-    //       ? rating.sort(function (a, b) {
-    //           if (a.rating > b.rating) {
-    //             return 1;
-    //           }
-    //           if (b.rating > a.rating) {
-    //             return -1;
-    //           }
-    //           return 0;
-    //         })
-    //       : rating.sort(function (a, b) {
-    //           if (a.rating > b.rating) {
-    //             return -1;
-    //           }
-    //           if (b.rating > a.rating) {
-    //             return 1;
-    //           }
-    //           return 0;
-    //         });
-    //   } */
-      
-    //   return {
-    //     ...state,
-    //     books: booksOrder,
-    //     booksCopy: action.payload,
-    //     booksTop: action.payload
-    //   };
-      
-      
+    
    case 'GET_BOOK_TITLE':
 
-            const titleCopy = state.booksCopy;
-            const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+    const titleCopy = state.booksCopy;
+    const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
 
-            return {
-                ...state,
-                books: title
-            };
+    return {
+      ...state,
+      books: title
+    };
 
-            case 'GET_BOOK_TITLE_ADMIN':
+  case 'GET_BOOK_TITLE_ADMIN':
 
-            const titleCopyAdmin = state.booksCopy;
-            const titleAdmin  = titleCopyAdmin.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+    const titleCopyAdmin = state.booksCopy;
+    const titleAdmin  = titleCopyAdmin.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
 
-            return {
-                ...state,
-                booksAdmin: titleAdmin
-            };
+    return {
+      ...state,
+      booksAdmin: titleAdmin
+    };
 
-            case 'GET_AUTHOR_NAME_ADMIN':
+  case 'GET_AUTHOR_NAME_ADMIN':
 
-              const nameCopyAdmin = state.authorsAdmin;
-              const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    const nameCopyAdmin = state.authorsCopy;
+    const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
   
-              return {
-                  ...state,
-                  authorsAdmin: nameAdmin
-              };
+    return {
+      ...state,
+      authorsAdmin: nameAdmin
+    };
+
+  case 'GET_AUTHOR_NAME':
+
+    const nameCopy = state.authorsCopy;
+    const name = nameCopy.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    
+    return {
+      ...state,
+      authors: name
+    };
       
       
     case "GET_BOOK_DETAILS":
@@ -173,6 +105,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         authors: action.payload,
+        authorsCopy: action.payload,
         authorsAdmin: action.payload
      }
 
@@ -294,8 +227,75 @@ case 'ORDER_BY_NAME':
     return {
       ...state,
       users: action.payload,
-  }  
+      usersCpoy: action.payload
+  }  ;
 
+  case "POST_USER":
+    //console.log('reducerPost:',action.payload)
+    return {
+      ...state,
+      userLogged: [ action.payload ]
+  }  
+  case 'ADD_TO_CART':
+    
+    let newCart=state.cart;
+    let repeats=false;
+    let index=''
+    newCart.map((e,i)=>{
+      if (e._id===action.payload._id){
+        repeats=true
+        index=i
+      }
+    })
+    if (repeats){
+      console.log('Repetido')
+      newCart[index].amount++
+    }
+    else{
+      newCart.push(action.payload)
+      newCart[newCart.length-1].amount=1
+      console.log('No repetido')
+    }
+    return{
+      ...state,
+      cart:newCart,
+      render:Math.random()
+    }
+  
+  case 'REMOVE_ONE_FROM_CART':
+    let newCart2=state.cart;
+    let index2='';
+    newCart2.map((e,i)=>{
+      if (e._id===action.payload){
+        index2=i;
+      }
+    })
+    if (newCart2[index2].amount===1){
+      newCart2.splice(index2,1)
+    }
+    else {
+      newCart2[index2].amount--
+    }
+    return{
+      ...state,
+      cart:newCart2,
+      render:Math.random()
+    }
+
+  case 'REMOVE_ALL_FROM_CART':
+    let newCart3=state.cart;
+    console.log('id :',action.payload)
+    newCart3=newCart3.filter(e=>e._id!==action.payload)
+    return{
+      ...state,
+      cart:newCart3
+    }
+
+  case 'CLEAR_CART':
+    return{
+      ...state,
+      cart:[]
+    }  
 
     default:
       return state;

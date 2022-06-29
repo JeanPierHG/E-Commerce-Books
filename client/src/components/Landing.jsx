@@ -13,9 +13,9 @@ export default function Landing() {
 
 
 
-  if(user){useEffect(()=>{
-    dispatch(postUser(user))
-  },[dispatch,user])}
+  // if(user){useEffect(()=>{
+  //   dispatch(postUser(user))
+  // },[dispatch,user])}
 
 
   return (

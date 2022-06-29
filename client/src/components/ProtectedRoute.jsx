@@ -10,7 +10,7 @@ import {
 
 
 export default function ProtectedRoute ({
-  isAuthenticated,//isAuthenticated--> true
+  isAllowed,//isAuthenticated--> true
   redirectPath = '/home',
   children
 })
@@ -18,7 +18,7 @@ export default function ProtectedRoute ({
 {
 
 
-  if (!isAuthenticated) {
+  if (!isAllowed) {
     return <Navigate to={redirectPath} replace />;
   }
 

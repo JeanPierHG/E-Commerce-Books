@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { orderByNameAdminBooks } from '../actions'
 import SearchBarAdminBook from './SearchBarAdmin'
-import AdminRefresh from './AdminRefresh'
+import AdminRefreshBooks from './AdminRefreshBooks'
 
 export default function PutBook() {
 
@@ -40,7 +40,7 @@ export default function PutBook() {
 
       <SearchBarAdminBook/>
 
-      <AdminRefresh/>
+      <AdminRefreshBooks/>
 
 
       <div>
@@ -53,7 +53,8 @@ export default function PutBook() {
 
       <h1>Libros</h1>
       <div className={style.grid}>
-        {allBooks.map((book) => {
+        {allBooks.length
+        ?allBooks.map((book) => {
           return (
             <div className={style.cardItem}>
               <h5>{book.title} </h5>
@@ -63,7 +64,8 @@ export default function PutBook() {
               </Link>
             </div>
           )
-        })}
+        })
+      :'Resultado inexistente'}
       </div>
 
       <Link to='/admin'>

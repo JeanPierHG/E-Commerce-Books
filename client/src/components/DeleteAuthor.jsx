@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { orderByNameAdminAuthor } from '../actions'
 import SearchBarAdminAuthor from './SearchBarAdminAuthor'
-import AdminRefresh from './AdminRefresh'
+import AdminRefresh from './AdminRefreshBooks'
+import AdminRefreshAuthor from './AdminRefreshAuthor'
 
 export default function DeleteAuthor() {
   const dispatch = useDispatch()
@@ -56,7 +57,8 @@ export default function DeleteAuthor() {
 
       <SearchBarAdminAuthor/>
       
-      <AdminRefresh/>
+      <AdminRefreshAuthor/>
+      
 
         <div>
            <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
@@ -83,7 +85,7 @@ export default function DeleteAuthor() {
                   </li>
                 )
               })
-            : 'loading'}
+            : 'Resultado no encontrado'}
         </ul>
       </div>
 

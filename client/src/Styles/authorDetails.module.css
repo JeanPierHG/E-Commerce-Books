@@ -74,3 +74,14 @@
 li {
   list-style: none;
 }
+
+.cart{
+  position:fixed;
+  top: 5rem;
+  right: 1rem;
+  border-radius: 50px;
+  z-index: 2;
+}
+.cart:hover{
+  background-color: #77c9d4;
+}

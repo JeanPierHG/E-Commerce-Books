@@ -8,6 +8,12 @@ import { postUser } from "../actions";
 export default function LogInButton(){
 
     const{loginWithRedirect} = useAuth0()
+    //const dispatch = useDispatch()
+
+    // async function handleClick(e){
+    //     await  loginWithRedirect()
+    //     dispatch (postUser(user))
+    // }
 
 
     return (

@@ -1,11 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getBooksAdmin } from "../actions";
-import { getAuthorsAdmin } from "../actions";
 import { Link } from "react-router-dom";
 
 
-export default function AdminRefresh(){
+export default function AdminRefreshBooks(){
 
 
     const dispatch = useDispatch()
@@ -19,24 +18,14 @@ export default function AdminRefresh(){
         scroller.scrollTo("gaston");
     };
 
-    const handleClickAuthors = (e) => {
-        e.preventDefault();
-        dispatch(getAuthorsAdmin());
-        navigate('/admin/');
-        scroller.scrollTo("gaston");
-    };
-
+    
 
 
     return(
-        <div>
+    <div>
         <Link to="/admin">
             <p onClick={handleClickBooks}>Todos los libros</p>
         </Link>
-
-         <Link to="/admin">
-         <p  onClick={handleClickAuthors}>Todos los Autores</p>
-     </Link>
      </div>
     )
 }

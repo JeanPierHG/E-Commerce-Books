@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import style from '../Styles/PutAuthor.module.css'
 import { orderByNameAdminAuthor } from '../actions'
 import SearchBarAdminAuthor from './SearchBarAdminAuthor'
-import AdminRefresh from './AdminRefresh'
+import AdminRefreshAuthor from './AdminRefreshAuthor'
 
 
 
@@ -40,7 +40,7 @@ export default function PutAuthor() {
 
       <SearchBarAdminAuthor/>
       
-      <AdminRefresh/>
+      <AdminRefreshAuthor/>
 
       <div>
            <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
@@ -51,7 +51,8 @@ export default function PutAuthor() {
       </div>
       <h1>Autores</h1>
       <div className={style.grid}>
-        {allAuthors.map((author) => {
+        {allAuthors.length
+        ? allAuthors.map((author) => {
           return (
             <div className={style.cardItem}>
               <h5>
@@ -63,7 +64,8 @@ export default function PutAuthor() {
               </Link>
             </div>
           )
-        })}
+        })
+      :'Resultado inexistente'}
       </div>
       <Link to='/put'>
         <button className={style.btnAdmin}>↼ Back</button>
