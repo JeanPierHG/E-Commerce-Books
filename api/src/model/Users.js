@@ -11,7 +11,7 @@ const userSchema = new Schema({
   surname: {
     type: String,
   },
-  birtday: {
+  birthday: {
     type: String,
   },
   dni: {
