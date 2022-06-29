@@ -58,9 +58,7 @@ router.post('/updateUser/:id', async (req, res) => {
 
 router.post('/toggleAdmin', async (req, res) => {
   const { id } = req.query
-  const { userIds } = req.body
-  console.log('Array', userIds)
-  console.log('Body', req.body)
+  const userIds = req.body
   try {
     if (userIds) {
       userIds.forEach(async (id) => {
