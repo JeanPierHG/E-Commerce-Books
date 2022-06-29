@@ -56,11 +56,11 @@ router.post('/updateUser/:id', async (req, res) => {
   }
 })
 
-router.post('/toggleAdmin/:id', async (req, res) => {
-  const { id } = req.params
+router.post('/toggleAdmin', async (req, res) => {
+  const { id } = req.query
   const { userIds } = req.body
   try {
-    if (userIds.length > 0) {
+    if (userIds) {
       userIds.forEach(async (id) => {
         const user = await Users.findById(id)
 
