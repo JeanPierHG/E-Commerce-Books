@@ -101,9 +101,10 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
     const user = await Users.findById(idUser)
 
     user.favouritesBooks.push(book._id)
-    await user.save()
 
-    res.send('Book successfully added')
+    const userUpdated = await user.save()
+
+    res.send(userUpdated)
   } catch (error) {
     res.send(error.message)
   }
