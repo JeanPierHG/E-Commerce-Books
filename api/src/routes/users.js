@@ -58,18 +58,36 @@ router.post('/updateUser/:id', async (req, res) => {
 
 router.post('/toggleAdmin/:id', async (req, res) => {
   const { id } = req.params
+  const { userIds } = req.body
   try {
-    const user = await Users.findById(id)
-    if (!user) throw new Error('The user not exists')
+    if (userIds.length > 0) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
 
-    if (user.isAdmin) {
-      user.isAdmin = false
-      await user.save()
-      return res.send('The user now is not admin')
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdmin) {
+          user.isAdmin = false
+          await user.save()
+        } else {
+          user.isAdmin = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
     } else {
-      user.isAdmin = true
-      await user.save()
-      return res.send('The user is now admin')
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdmin) {
+        user.isAdmin = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdmin = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
     }
   } catch (error) {
     res.send(error.message)
@@ -104,7 +122,7 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     const userUpdated = await user.save()
 
-    res.send(userUpdated)
+    res.json(userUpdated)
   } catch (error) {
     res.send(error.message)
   }
