@@ -3,9 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 30px;
-  width: 80%;
   font-weight: bold;
+  width: 300px;
   height: 500px;
 }
 
@@ -22,6 +21,7 @@ h2 {
 .info {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .containerRating {
@@ -44,5 +44,27 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 100%;
+  width: 65%;
+  height: 500px;
+}
+
+.estrellas a {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.estrellas:hover a {
+  opacity: 100%;
+}
+
+.estrellas a:hover {
+  opacity: 100%;
+}
+
+.estrellas a:hover ~ a {
+  opacity: 50%;
+}
+
+.estrellas:active {
+  opacity: 100%;
 }

@@ -1,6 +1,6 @@
 .container {
   /* background: -webkit-linear-gradient(70deg,#77C9D4,#015249); */
-  background: white;
+  background: rgba(255, 255, 255, 0.534);
   padding: 10px;
   border-radius: 8px;
   width: 17%;
@@ -29,7 +29,7 @@
   margin-bottom: 20px;
   color: #015249;
   border-radius: 2px;
-  background-color: rgb(223, 251, 247);
+  background-color: rgb(223, 251, 247, 0);
   box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
   /* border: 1px solid white; */
 }
@@ -43,7 +43,6 @@
 .img {
   width: 100px;
   height: 150px;
-
   border-radius: 5px;
 }
 
