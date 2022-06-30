@@ -94,18 +94,76 @@ router.post('/toggleAdmin', async (req, res) => {
   }
 })
 
-router.post('/toggleBanned/:id', async (req, res) => {
-  const { id } = req.params
+router.post('/toggleBanned', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
   try {
-    const user = await Users.findById(id)
-    if (user.isBanned) {
-      user.isBanned = false
-      await user.save()
-      return res.send('The user now is not banned')
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isBanned) {
+          user.isBanned = false
+          await user.save()
+        } else {
+          user.isBanned = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
     } else {
-      user.isBanned = true
-      await user.save()
-      return res.send('The user is now banned')
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isBanned) {
+        user.isBanned = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isBanned = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/togglePremium', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isPremiun) {
+          user.isPremiun = false
+          await user.save()
+        } else {
+          user.isPremiun = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isPremiun) {
+        user.isPremiun = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isPremiun = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
     }
   } catch (error) {
     res.send(error.message)
