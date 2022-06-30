@@ -3,6 +3,7 @@ const { Router } = require("express");
 const Books = require("../model/Books");
 const Authors = require("../model/Author");
 const Genres = require("../model/Genres");
+const Users = require("../model/Users");
 const router = Router();
 
 router.get("/", async function (req, res) {
@@ -156,7 +157,6 @@ router.post("/addBook", async function (req, res) {
     name: authors.name,
     surname: authors.surname,
   });
-  
 
   try {
     if (!authorDb) throw new Error("Author not found");
@@ -184,8 +184,7 @@ router.post("/addBook", async function (req, res) {
         select: { name: 1, _id: 0, surname: 1, biography: 1 },
       });
     authorDb[0].books.push(saveBook[0]._id);
-      await authorDb[0].save()
-    
+    await authorDb[0].save();
 
     return res.json(saveBook);
   } catch (err) {
@@ -224,6 +223,48 @@ router.delete("/deleteBook/:id", async (req, res) => {
   } catch {
     res.status(404);
     res.send({ error: "ESE LIBRO NO EXISTE" });
+  }
+});
+
+router.post("/updateRating/:idBook/:rating/:userId", async (req, res) => {
+  let { idBook, rating, userId } = req.params;
+
+  const book = await Books.findById(idBook);
+  const user = book.ratingUsers.find((element) => {
+    element.userId === userId;
+  });
+  if (user) res.status(400).send("Este usuario ya ha votado");
+  if (!book) res.status(404).send("Book not found");
+  book.ratingUsers.push({ rating, userId });
+  book.rating = (book.rating + Number(rating)) / book.ratingUsers.length;
+  const updateBook = await book.save();
+
+  updateBook
+    ? res.status(200).json(updateBook)
+    : res.status(404).send("Error al grabar rating");
+});
+
+router.post("/hideBook/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id) {
+      await Books.findByIdAndUpdate(id, { isHidden: true });
+      res.send("The book is hidden now");
+    }
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
+router.post("/showBook/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id) {
+      await Books.findByIdAndUpdate(id, { isHidden: false });
+      res.send("The book can be seen now");
+    }
+  } catch (err) {
+    res.status(404).send(err.message);
   }
 });
 

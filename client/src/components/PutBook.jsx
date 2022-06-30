@@ -5,8 +5,8 @@ import style from '../Styles/PutBook.module.css'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { orderByNameAdminBooks } from '../actions'
-import SearchBarAdminBook from './SearchBarAdmin'
-import AdminRefresh from './AdminRefresh'
+import AdminSearchBarBooks from './AdminSearchBarBooks'
+import AdminRefreshBooks from './AdminRefreshBooks'
 
 export default function PutBook() {
 
@@ -38,9 +38,14 @@ export default function PutBook() {
   return (
     <div className={style.containerPutList}>
 
-      <SearchBarAdminBook/>
 
-      <AdminRefresh/>
+      <Link to='/put'>
+        <button className={style.btnAdmin}>↼ Back</button>
+      </Link>
+
+      <AdminSearchBarBooks/>
+
+      <AdminRefreshBooks/>
 
 
       <div>
@@ -53,7 +58,8 @@ export default function PutBook() {
 
       <h1>Libros</h1>
       <div className={style.grid}>
-        {allBooks.map((book) => {
+        {allBooks.length
+        ?allBooks.map((book) => {
           return (
             <div className={style.cardItem}>
               <h5>{book.title} </h5>
@@ -63,10 +69,11 @@ export default function PutBook() {
               </Link>
             </div>
           )
-        })}
+        })
+      :'Resultado inexistente'}
       </div>
 
-      <Link to='/admin'>
+      <Link to='/put'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>

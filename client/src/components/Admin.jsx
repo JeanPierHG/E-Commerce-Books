@@ -20,6 +20,19 @@ export function Admin() {
         <Link to='/stock'>
           <button className={styles.btn}>Ver Stock</button>
         </Link>
+
+        <Link to='/adminusers'>
+          <button className={styles.btn}>Usuarios</button>
+        </Link>
+
+        <Link to='/adminorders'>
+          <button className={styles.btn}>Ordenes</button>
+        </Link>
+
+        <Link to='/admincarrusel'>
+          <button className={styles.btn}>Carrusel</button>
+        </Link>
+        
       </div>
     </div>
   )

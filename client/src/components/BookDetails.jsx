@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookDetails ,getBookGenre, clearPageBookDetails } from "../actions";
+import { getBookDetails ,getBookGenre, clearPageBookDetails, addToCart } from "../actions";
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
@@ -20,9 +20,15 @@ export default function BookDetails() {
   }, [dispatch]);
 
   function handleClick(e){
-   
+
     dispatch(getBookGenre(e))
     navigate('/home')
+  }
+  function handleAddToCart(e){
+
+    e.preventDefault();
+    dispatch(addToCart(id))
+    alert('Libro agregado al carrito!')
   }
  
   useEffect(() => {
@@ -34,11 +40,10 @@ export default function BookDetails() {
 
   const book = useSelector(state=>state.bookDetails);
   const author = book.authors
-  // console.log('autor',author)
-  // console.log('///////',book.authors)
+  console.log('book en details :',book)
   return (
     <div className={styles.container}>
-
+      <Link to='/cart'><button className={styles.cart}>Ir al Carrito</button></Link>
       <img src={book.cover} alt="Not Found ):" className={styles.img} />
       
       <div className={styles.info}>
@@ -69,7 +74,7 @@ export default function BookDetails() {
       <div className={styles.buy}>
         <h3 className={styles.price}>{book.price}$</h3>
         <h4>Stock:{book.stock}</h4>
-        <button className={styles.button}>Añadir al carrito</button>
+        <button className={styles.button} onClick={e=>handleAddToCart(e)}>Añadir al carrito</button>
         <button className={styles.button}>Añadir a lista de desesados</button>
       </div>
       

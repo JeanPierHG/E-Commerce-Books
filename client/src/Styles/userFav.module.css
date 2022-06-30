@@ -1,0 +1,14 @@
+
+.container {
+    width: 10rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center center;
+    margin:15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #015249;
+    background-color: rgba(128, 128, 128, 0.289);
+    transition: 500ms;
+}

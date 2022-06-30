@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 const libroSchema = new Schema({
   title: {
@@ -7,7 +7,7 @@ const libroSchema = new Schema({
   },
   authors: {
     type: Schema.Types.ObjectId,
-    ref: "Authors",
+    ref: 'Authors',
   },
   year: {
     type: Number,
@@ -27,6 +27,7 @@ const libroSchema = new Schema({
     type: Number,
     default: 0,
   },
+  ratingUsers: { type: Array },
   stock: {
     type: Number,
     default: 0,
@@ -38,12 +39,16 @@ const libroSchema = new Schema({
   genres: [
     {
       type: Schema.Types.String,
-      ref: "Genre",
+      ref: 'Genre',
     },
   ],
   review: {
     type: String,
   },
-});
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-module.exports = model("Books", libroSchema);
+module.exports = model('Books', libroSchema)

@@ -7,7 +7,16 @@
     rgba(55, 61, 81, 0.85) 98.72%
   );
 }
-
+.cart{
+  position:fixed;
+  top: 10rem;
+  right: 4rem;
+  border-radius: 50px;
+  z-index: 2;
+}
+.cart:hover{
+  background-color: #77c9d4;
+}
 .home {
   background: url("../imgs/Landing.jpg");
   width: 100%;

@@ -136,3 +136,13 @@
     width: 4rem;
     height: 2rem;
 }
+.cart{
+    position:fixed;
+    top: 5rem;
+    right: 4rem;
+    border-radius: 50px;
+    z-index: 2;
+}
+.cart:hover{
+    background-color: #77C9D4;
+}

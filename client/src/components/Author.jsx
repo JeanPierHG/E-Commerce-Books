@@ -7,6 +7,7 @@ import {getAuthors} from '../actions';
 import CardAuthor from './CardAuthor';
 import { animateScroll as scroll} from "react-scroll";
 import styles from '../Styles/author.module.css'
+import SearchBarAuthor from './SearchBarAuthor';
 
 const Author = () => {
 
@@ -26,18 +27,32 @@ const Author = () => {
         scroll.scrollToTop();
     }, []);
 
+    const handleClickAuthors = (e) => {
+        e.preventDefault();
+        dispatch(getAuthors());
+        navigate('/admin/');
+        scroller.scrollTo("gaston");
+    };
+
     return (
         <div className={styles.authors}>
+
+            <SearchBarAuthor/>
+
+        <Link to="/admin">
+            <p  onClick={handleClickAuthors}>Todos los Autores</p>
+        </Link>
          
             <ol className={styles.container}>
-                {
-                    orderedAuthors?.map(e => (
+                {orderedAuthors.length?
+                    orderedAuthors.map(e => (
                         <Link to={'/author/' + e._id} className={styles.Link}>
                             
                             <CardAuthor name={e.name} surname={e.surname} picture={e.picture}/>
                         
                         </Link>
                     ))
+                    :"No se encontro el Escritor"
                 }  
             </ol>
       

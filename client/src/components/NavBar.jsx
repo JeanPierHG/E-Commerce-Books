@@ -24,14 +24,15 @@ const NavBar = () => {
         dispatch(getBooks());
         navigate('/home/');
         scroller.scrollTo("gaston");
+        setState('default');
     };
 
     const handleSelectGenre = (e) => {
         e.preventDefault();
         dispatch(getBookGenre(e.target.value));
-        setState('default');
         navigate('/home/');
         scroller.scrollTo("gaston");
+        setState(e.target.value);
     }
 
     const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',

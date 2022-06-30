@@ -1,13 +1,14 @@
 import React from 'react'
 import style from '../Styles/DeleteData.module.css'
-import { deleteBook, deleteAuthor } from '../actions'
+import { deleteAuthor , showHideAuthor } from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { orderByNameAdminAuthor } from '../actions'
-import SearchBarAdminAuthor from './SearchBarAdminAuthor'
-import AdminRefresh from './AdminRefresh'
+import AdminSearchBarAuthor from './AdminSearchBarAuthor'
+import AdminRefreshAuthor from './AdminRefreshAuthor'
+
 
 export default function DeleteAuthor() {
   const dispatch = useDispatch()
@@ -27,10 +28,6 @@ export default function DeleteAuthor() {
 };
   
 
-
-
-
-
 //   const orderedAuthors = allAuthors.sort(function (a, b) {
 //     if (a.name.toLowerCase() > b.name.toLowerCase()) {
 //       return 1
@@ -40,6 +37,13 @@ export default function DeleteAuthor() {
 //     }
 //     return 0
 //   })
+
+
+function handleShowHideAuthor(id) {
+  dispatch(showHideAuthor(id))
+  alert('Modificado')
+  navigate('/admin')
+}
 
  
   function handleDeleteAuthor(id) {
@@ -54,9 +58,14 @@ export default function DeleteAuthor() {
   return (
     <div className={style.containerDelete}>
 
-      <SearchBarAdminAuthor/>
+      <Link to='/delete'>
+        <button className={style.btnAdmin}>↼ Back</button>
+      </Link>
+
+      <AdminSearchBarAuthor/>
       
-      <AdminRefresh/>
+      <AdminRefreshAuthor/>
+      
 
         <div>
            <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
@@ -71,23 +80,32 @@ export default function DeleteAuthor() {
       <div className={style.containerItems}>
         <h2>Autores</h2>
         <ul className={style.grid}>
+
           {allAuthors.length
             ? allAuthors.map((author) => {
                 return (
                   <li className={style.cardItem}>
                     <img src={author.picture} alt='' />
                     {author.name} {author.surname}
+                    <button onClick={()=> handleShowHideAuthor(author._id)}>
+                      {author.isHidden === true
+                      ?'MOSTRAR'
+                      :'OCULTAR'}
+                    </button>
+    
                     <button onClick={() => handleDeleteAuthor(author._id)}>
                       x
                     </button>
+
                   </li>
                 )
               })
-            : 'loading'}
+            : 'Resultado no encontrado'}
+
         </ul>
       </div>
 
-      <Link to='/admin'>
+      <Link to='/delete'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>

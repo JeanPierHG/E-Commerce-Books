@@ -6,8 +6,10 @@ import {useNavigate} from 'react-router-dom';
 import {getBookTitleAdmin} from '../actions';
 import styles from '../Styles/searchBar.module.css'
 import {scroller} from "react-scroll";
+import { getAuthorNameAdmin } from '../actions';
 
-const SearchBarAdminBook = () => {
+
+const AdminSearchBarAuthor = () => {
 
     const [input, setInput] = useState('');
     const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const SearchBarAdminBook = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getBookTitleAdmin(input));
+        dispatch(getAuthorNameAdmin(input));
         scroller.scrollTo("gaston");
         setInput('');
     }
@@ -27,11 +29,11 @@ const SearchBarAdminBook = () => {
     return (
         <div className={styles.container}>
 
-            <input type="text" placeholder='Título' value={input} onChange={(e) => handleChange(e)} className={styles.input}/>
+            <input type="text" placeholder='Name' value={input} onChange={(e) => handleChange(e)} className={styles.input}/>
             <button type='submit' onClick={(e) => handleSubmit(e)} className={styles.button}>Buscar</button>
       
         </div>
     )
 }
 
-export default SearchBarAdminBook;
+export default AdminSearchBarAuthor;

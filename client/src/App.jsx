@@ -31,19 +31,33 @@ import PutBook from "./components/PutBook";
 import PutAuthorID from "./components/PutAuthorID";
 import PutBookID from "./components/PutBookID";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Shop from "./components/Shop";
 import Stock from "./components/Stock";
 import LogInButton from "./components/LogIn";
 import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
+import AdminPro from "./components/AdminPro";
+import UserDatos from "./components/UserDatos";
+import UserSuscripcion from "./components/UserSuscripcion";
+import ShoopingCart from "./components/ShoppingCart";
+import AdminUsers from "./components/AdminUsers";
+import AdminOrders from "./components/AdminOrders";
+import AdminCarousel from "./components/AdminCarousel";
+import NavBarAdmin from "./components/NavBarAdmin";
+//import StockTable from "./components/StockTable";
+import UserFav from "./components/UserFav";
+
 
 
 
 function App() {
   const dispatch = useDispatch();
-  const{ user, isAuthenticated , isLoading} = useAuth0()
+
+  //const{ user, isAuthenticated , isLoading} = useAuth0()
+  
+  
+  // const usuario = usuarios.filter(u=>u.email === user.email)
 
 
   // const [users, setUsers] = useState(null);
@@ -79,9 +93,17 @@ function App() {
   }, [dispatch]);
 
 
+  const usuario = useSelector( state => state.userLogged);
+
+
   return (
     <BrowserRouter>
       <NavBar />
+      { usuario.length === 1 && usuario[0].isAdmin
+      ? 
+      <NavBarAdmin/>
+    :''} 
+      
       <div className="main-without-nav">
         {/* {users ? (
           <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
@@ -102,13 +124,26 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
+          
 
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            <Route path="/shop" element={<Shop />} />
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/cart" element={<ShoopingCart />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/user" element={<UserPerfil />} />
+          </Route> 
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/datos" element={<UserDatos />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/suscripcion" element={<UserSuscripcion />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/deseados" element={<UserFav />} />
           </Route>
 
           <Route
@@ -116,32 +151,32 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                // isAllowed={!!users && users.roles.includes("admin")}
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
               >
                 <Admin />
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/user"
+         
+
+            <Route
+            path="/adminpro"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                // isAllowed={!!user && user.roles.includes("user")}
-                isAuthenticated={users}
+                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
               >
-                <UserPerfil />
+                <AdminPro />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
           <Route
             path="/add"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <Add />
               </ProtectedRoute>
@@ -153,31 +188,31 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <AddAuthor />
               </ProtectedRoute>
             }
           />
 
-          {/* <Route
+          <Route
           path="/addbook"
           element={
             <ProtectedRoute
               redirectPath="/home"
-              isAllowed={!!user && users.roles.includes("admin")}
+              isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
             >
               <AddBook />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
           <Route
             path="/delete"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <DeleteData />
               </ProtectedRoute>
@@ -189,7 +224,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <DeleteAuthor />
               </ProtectedRoute>
@@ -201,7 +236,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <DeleteBook />
               </ProtectedRoute>
@@ -213,7 +248,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <Put />
               </ProtectedRoute>
@@ -225,7 +260,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <PutBook />
               </ProtectedRoute>
@@ -237,7 +272,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <PutAuthor />
               </ProtectedRoute>
@@ -249,7 +284,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <PutAuthorID />
               </ProtectedRoute>
@@ -261,7 +296,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <PutBookID />
               </ProtectedRoute>
@@ -273,16 +308,78 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <Stock />
               </ProtectedRoute>
             }
           />
+
+            {/* <Route
+            path="/stocktable"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+              >
+                <StockTable />
+              </ProtectedRoute>
+            }
+          /> */}
+
+
+            <Route
+            path="/adminorders"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+              >
+                <AdminOrders />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminusers"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+              >
+                <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admincarrusel"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+              >
+                <AdminCarousel />
+              </ProtectedRoute>
+            }
+          />
+
           
-          {/* <Route exact path='/add' element={<Add/>} /> */}
-          <Route exact path="/addbook" element={<AddBook />} />
-          {/* <Route exact path='/addauthor' element={<AddAuthor/>} />  */}
+          {/* <Route
+            path="/user/suscripcion"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={usuario.length===1}
+              >
+                <UserSuscripcion />
+              </ProtectedRoute>
+            }
+          /> */}
+          
         </Routes>
       </div>
       <BottomBar />

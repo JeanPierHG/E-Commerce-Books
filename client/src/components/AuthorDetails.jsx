@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { clearPageAuthorDetails, getAuthorDetails } from "../actions";
+import { addToCart, clearPageAuthorDetails, getAuthorDetails } from "../actions";
 import { Link } from "react-router-dom";
 import style from "../Styles/authorDetails.module.css";
 import { animateScroll as scroll } from "react-scroll";
@@ -29,8 +29,15 @@ const AuthorDetails = () => {
     };
   }, [dispatch]);
 
+  function handleClick(e){
+    e.preventDefault;
+    dispatch(addToCart(e.target.value))
+    alert('Libro añadido al carrito!')
+  }
+
   return (
     <div className={style.container}>
+      <Link to='/cart'><button className={style.cart}>Ir al Carrito</button></Link>
       <div className={style.btnUbi}>
         <Link to="/author">
           <button className={style.btn}>Volver</button>
@@ -57,7 +64,7 @@ const AuthorDetails = () => {
           <p>Fecha de nacimiento: {authorDetails.birth}</p>
         </div>
         <div className={style.bio}>
-          <p>Biografiía: {authorDetails.biography}</p>
+          <p>Biografía: {authorDetails.biography}</p>
         </div>
       </div>
       <div className={style.carrusel}>
@@ -92,7 +99,7 @@ const AuthorDetails = () => {
                   ></img>
                 </li>
               </Link>
-              <button className={style.btnImg}>Comprar</button>
+              <button className={style.btnImg} value={book._id} onClick={e=>handleClick(e)}>Añadir al carrito</button>
             </div>
           ))
         ) : (

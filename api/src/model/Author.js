@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 const authorSchema = new Schema({
   name: {
@@ -18,8 +18,8 @@ const authorSchema = new Schema({
   },
   picture: {
     type: String,
-    default: 'https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg',
-    
+    default:
+      'https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg',
   },
   biography: {
     type: String,
@@ -28,9 +28,13 @@ const authorSchema = new Schema({
   books: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
-});
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-module.exports = model("Authors", authorSchema);
+module.exports = model('Authors', authorSchema)

@@ -1,4 +1,5 @@
 import axios from "axios";
+const url = "https://ecommercehenryx.herokuapp.com";
 
 /*export function getBooks () {
 
@@ -39,34 +40,11 @@ export function getBooks() {
   };
 }
 
-export function getBooksAdmin() {
-  return async function (dispatch) {
-    var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
-    return dispatch({
-      type: "GET_BOOKS_ADMIN",
-      payload: json.data,
-    });
-  };
-}
-
 export function getAuthorsAdmin() {
   return async function (dispatch) {
     var json = await axios.get("https://ecommercehenryx.herokuapp.com/authors");
     return dispatch({
       type: "GET_AUTHORS_ADMIN",
-      payload: json.data,
-    });
-  };
-}
-
-export function getBookDetails(id) {
-  return async function (dispatch) {
-    var json = await axios.get(
-      "https://ecommercehenryx.herokuapp.com/books/" + id
-    );
-
-    return dispatch({
-      type: "GET_BOOK_DETAILS",
       payload: json.data,
     });
   };
@@ -86,9 +64,9 @@ export function getBookTitleAdmin(payload) {
   };
 }
 
-export function getAuthorNameAdmin(payload) {
+export function getAuthorName(payload) {
   return {
-    type: "GET_AUTHOR_NAME_ADMIN",
+    type: "GET_AUTHOR_NAME",
     payload: payload,
   };
 }
@@ -116,6 +94,85 @@ export function getAuthors() {
       type: "GET_AUTHORS",
       payload: json.data,
     });
+  };
+}
+
+export function getBooksAdmin() {
+  return async function (dispatch) {
+    var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+    return dispatch({
+      type: "GET_BOOKS_ADMIN",
+      payload: json.data,
+    });
+  };
+}
+
+export function getBookDetails(id) {
+  return async function (dispatch) {
+    var json = await axios.get(
+      "https://ecommercehenryx.herokuapp.com/books/" + id
+    );
+
+    return dispatch({
+      type: "GET_BOOK_DETAILS",
+      payload: json.data,
+    });
+  };
+}
+
+export function deleteBook(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(
+      `https://ecommercehenryx.herokuapp.com/books/deleteBook/${id}`
+    );
+    return dispatch({
+      type: "DELETE_BOOK",
+    });
+  };
+}
+
+export function showHideBook(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(`${id}`);
+    return dispatch({
+      type: "SHOW_HIDE_BOOK",
+    });
+  };
+}
+
+export function showHideAuthor(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(`${id}`);
+    return dispatch({
+      type: "SHOW_HIDE_AUTHOR",
+    });
+  };
+}
+
+export function putAuthor(payload, id) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      `http://ecommercehenryx.herokuapp.com/authors/update/${id}`,
+      payload
+    );
+    return dispatch({
+      type: "PUT_AUTHOR",
+    });
+  };
+}
+
+export function orderByPrice(payload) {
+  console.log("////pay:", payload);
+  return {
+    type: "ORDER_BY_PRICE",
+    payload: payload,
+  };
+}
+
+export function getAuthorNameAdmin(payload) {
+  return {
+    type: "GET_AUTHOR_NAME_ADMIN",
+    payload: payload,
   };
 }
 
@@ -170,17 +227,6 @@ export function postAuthor(payload) {
   };
 }
 
-export function deleteBook(id) {
-  return async function (dispatch) {
-    const json = await axios.delete(
-      `https://ecommercehenryx.herokuapp.com/books/deleteBook/${id}`
-    );
-    return dispatch({
-      type: "DELETE_BOOK",
-    });
-  };
-}
-
 export function deleteAuthor(id) {
   return async function (dispatch) {
     const json = await axios.delete(
@@ -188,18 +234,6 @@ export function deleteAuthor(id) {
     );
     return dispatch({
       type: "DELETE_AUTHOR",
-    });
-  };
-}
-
-export function putAuthor(payload, id) {
-  return async function (dispatch) {
-    const json = await axios.post(
-      `http://ecommercehenryx.herokuapp.com/authors/update/${id}`,
-      payload
-    );
-    return dispatch({
-      type: "PUT_AUTHOR",
     });
   };
 }
@@ -213,14 +247,6 @@ export function putBook(payload, id) {
     return dispatch({
       type: "PUT_BOOK",
     });
-  };
-}
-
-export function orderByPrice(payload) {
-  console.log("////pay:", payload);
-  return {
-    type: "ORDER_BY_PRICE",
-    payload: payload,
   };
 }
 
@@ -257,17 +283,6 @@ export function postUser(payload) {
   };
 }
 
-export function getUsers() {
-  return async function (dispatch) {
-    const json = await axios.get("https://ecommercehenryx.herokuapp.com/users");
-    console.log("///users:", json.data);
-    return dispatch({
-      type: "GET_USERS",
-      payload: json.data,
-    });
-  };
-}
-
 export const getRating = () => async (dispatch) => {
   try {
     const json = await axios.put(
@@ -276,6 +291,129 @@ export const getRating = () => async (dispatch) => {
     dispatch({
       type: "GET_RATING",
       payload: json.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "ERROR_MESSAGE",
+      payload: error,
+    });
+  }
+};
+
+export function orderByStockAdminBooks(payload) {
+  return {
+    type: "ORDER_BY_STOCK_ADMIN_BOOKS",
+    payload: payload,
+  };
+}
+
+export function getUsers() {
+  return async function (dispatch) {
+    const json = await axios.get("https://ecommercehenryx.herokuapp.com/users");
+    //console.log('///users:',json.data)
+    return dispatch({
+      type: "GET_USERS",
+      payload: json.data,
+    });
+  };
+}
+
+export function addToCart(id) {
+  console.log("id en action :", id);
+  return async (dispatch) => {
+    const book = await axios.get(
+      "https://ecommercehenryx.herokuapp.com/books/" + id
+    );
+    console.log("book en action :", book);
+    return dispatch({
+      type: "ADD_TO_CART",
+      payload: book.data,
+    });
+  };
+}
+export function removeOneFromCart(id) {
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ONE_FROM_CART",
+      payload: id,
+    });
+  };
+}
+export function removeAllFromCart(id) {
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ALL_FROM_CART",
+      payload: id,
+    });
+  };
+}
+export function clearCart() {
+  return (dispatch) => {
+    return dispatch({
+      type: "CLEAR_CART",
+      payload: "nada",
+    });
+  };
+}
+
+export function setToAdmin(id) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdmin/" + id
+    );
+    //console.log('///users:',json.data)
+    return dispatch({
+      type: "SET_TO_ADMIN",
+    });
+  };
+}
+
+export function setToUser() {
+  return async function (dispatch) {
+    const json = await axios.put(
+      "https://ecommercehenryx.herokuapp.com/users/setAdmin/:id"
+    );
+    //console.log('///users:',json.data)
+    return dispatch({
+      type: "SET_TO_USER",
+    });
+  };
+}
+
+export function addFav(payload, id) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      `https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`
+    );
+
+    return dispatch({
+      type: "ADD_FAV",
+      payload: json.data,
+    });
+  };
+}
+
+export function deleteBookFav(payload, id) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      `https://ecommercehenryx.herokuapp.com/users/deleteDesiredBooks/${payload}/${id}`
+    );
+
+    return dispatch({
+      type: "DELETE_BOOK_FAV",
+      payload: json.data,
+    });
+  };
+}
+
+export const putRating = (idBook, rating, userId) => async (dispatch) => {
+  try {
+    const response = await axios.put(
+      `${url}/books/updateRating/${idBook}/${rating}/${userId}`
+    );
+    dispatch({
+      type: "PUT_RATING",
+      payload: response.data,
     });
   } catch (error) {
     dispatch({
