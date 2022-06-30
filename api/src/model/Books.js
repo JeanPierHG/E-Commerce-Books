@@ -45,6 +45,10 @@ const libroSchema = new Schema({
   review: {
     type: String,
   },
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = model('Books', libroSchema)

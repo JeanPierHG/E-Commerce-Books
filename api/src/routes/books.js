@@ -243,4 +243,28 @@ router.post('/updateRating/:idBook/:rating', async (req, res) => {
   }
 })
 
+router.post('/hideBook/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    if (id) {
+      await Books.findByIdAndUpdate(id, { isHidden: true })
+      res.send('The book is hidden now')
+    }
+  } catch (err) {
+    res.status(404).send(err.message)
+  }
+})
+
+router.post('/showBook/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    if (id) {
+      await Books.findByIdAndUpdate(id, { isHidden: false })
+      res.send('The book can be seen now')
+    }
+  } catch (err) {
+    res.status(404).send(err.message)
+  }
+})
+
 module.exports = router
