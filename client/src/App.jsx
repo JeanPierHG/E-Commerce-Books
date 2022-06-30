@@ -45,7 +45,8 @@ import AdminUsers from "./components/AdminUsers";
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
-import StockTable from "./components/StockTable";
+//import StockTable from "./components/StockTable";
+import UserFav from "./components/UserFav";
 
 
 
@@ -92,9 +93,7 @@ function App() {
   }, [dispatch]);
 
 
-  const usuario = useSelector( state => state.userLogged)//[{}]
-  console.log('usuarioAPP:',usuario)
-  console.log('soyLEGNTH-APP:',usuario.length)
+  const usuario = useSelector( state => state.userLogged);
 
 
   return (
@@ -137,14 +136,15 @@ function App() {
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/user/datos" element={<UserDatos />} />
-          </Route> 
+          </Route>
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/user/suscripcion" element={<UserSuscripcion />} />
-          </Route> 
+          </Route>
 
-
-          
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/deseados" element={<UserFav />} />
+          </Route>
 
           <Route
             path="/admin"
@@ -158,6 +158,7 @@ function App() {
             }
           />
          
+
             <Route
             path="/adminpro"
             element={
@@ -314,7 +315,7 @@ function App() {
             }
           />
 
-            <Route
+            {/* <Route
             path="/stocktable"
             element={
               <ProtectedRoute
@@ -324,7 +325,7 @@ function App() {
                 <StockTable />
               </ProtectedRoute>
             }
-          />
+          /> */}
 
 
             <Route
@@ -367,7 +368,7 @@ function App() {
           />
 
           
-          <Route
+          {/* <Route
             path="/user/suscripcion"
             element={
               <ProtectedRoute
@@ -377,7 +378,7 @@ function App() {
                 <UserSuscripcion />
               </ProtectedRoute>
             }
-          />
+          /> */}
           
         </Routes>
       </div>

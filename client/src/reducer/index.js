@@ -315,7 +315,21 @@ case 'ORDER_BY_NAME':
     return{
       ...state,
       cart:[]
-    }  
+    }
+    
+  case 'ADD_FAV':
+    
+      return({
+        ...state,
+        userLogged: [action.payload]
+      })
+  
+  case 'DELETE_BOOK_FAV':
+    
+    return({
+      ...state,
+      userLogged: [action.payload]
+    })
 
     default:
       return state;

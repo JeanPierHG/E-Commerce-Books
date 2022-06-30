@@ -333,6 +333,28 @@ export function setToUser (){
   }
 };
 
+export function addFav (payload, id){
+  return async function (dispatch){
+     const json = await axios.post(`https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`);
+     
+      return dispatch({
+        type:'ADD_FAV',
+        payload: json.data
+      })
+  }
+};
+
+export function deleteBookFav (payload, id){
+  return async function (dispatch){
+     const json = await axios.post(`https://ecommercehenryx.herokuapp.com/users/deleteDesiredBooks/${payload}/${id}`);
+     
+      return dispatch({
+        type:'DELETE_BOOK_FAV',
+        payload: json.data
+      })
+  }
+};
+
   
 
 
