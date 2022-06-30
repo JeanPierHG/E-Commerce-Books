@@ -13,6 +13,13 @@ export default function CardBook({ title, cover, price, rating }) {
       />
       <div className={styles.block}>
         <h2>{title}</h2>
+        <div className={styles.estrellas}>
+          <a>⭐</a>
+          <a>⭐</a>
+          <a>⭐</a>
+          <a>⭐</a>
+          <a>⭐</a>
+        </div>
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <AutoAwesomeIcon className={styles.ratingIcon} />
