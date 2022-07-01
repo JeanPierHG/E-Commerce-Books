@@ -18,6 +18,22 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const userId = await Users.findById(id).populate([
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+      'ratingBooks',
+    ])
+    if (userId) throw new Error('User not found')
+    res.json(userId)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 router.post('/addUser', async (req, res) => {
   const { nickname, name, email, picture, phone, address } = req.body
   try {
@@ -200,6 +216,43 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
     const userUpdate = await user.save()
 
     res.send(userUpdate)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleNewsletter', async (req, res) => {
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isSubscribeNewsLetter) {
+          user.isSubscribeNewsLetter = false
+          await user.save()
+        } else {
+          user.isSubscribeNewsLetter = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isSubscribeNewsLetter) {
+        user.isSubscribeNewsLetter = false
+        await user.save()
+        return res.send('The user now is not subscribe a newsletter')
+      } else {
+        user.isSubscribeNewsLetter = true
+        await user.save()
+        return res.send('The user is now subscribe a newsletter')
+      }
+    }
   } catch (error) {
     res.send(error.message)
   }

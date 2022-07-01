@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setToAdmin ,getUsers } from "../actions";
+import { setToAdmin ,getUsers } from "../../actions";
 
 
 export default function AdminProSet(props) {
@@ -9,18 +9,17 @@ export default function AdminProSet(props) {
   const setChanged = props.setChanged;
   const changed = props.changed;
   //console.log("changed es: ", changed);
-  var userIds = [];
+ var userIds = [];
 
   function toogleAdmin(e, users) {
     users.forEach(usuario => {
-      userIds.push(  usuario._id );
+    userIds.push(  usuario._id );
+   
     });
-    setTimeout(function(){
-        dispatch(setToAdmin(userIds))
-    }, 5000);
-    
-    
-    dispatch(getUsers())
+     dispatch(setToAdmin(userIds))
+     setTimeout(function(){
+      dispatch(getUsers())
+    }, 500);
     setChanged(!changed);
    // console.log("changed AHORA ES es: ", changed);
     userIds = [];
@@ -29,7 +28,7 @@ export default function AdminProSet(props) {
   return (
     <div>
       <button onClick={(e) => toogleAdmin(e, users)}>
-       Permisos de Administrador
+       Otorgar/Quitar Permiso de Administrador
       </button>
     </div>
   );

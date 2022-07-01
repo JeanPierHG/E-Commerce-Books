@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postUser, getUsers, setToAdmin } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
-import AdminProSet from "./AdminProSet";
+import AdminProSet from "./AdminPro/AdminProSet";
 import AdminUserChangePlan from "./AdminUserChangePlan";
 import AdminUserBanned from "./AdminUserBanned";
 import AdminUserProfile from "./AdminUserProfile";
+import { Link } from "react-router-dom";
 
 
 
@@ -30,22 +31,32 @@ export default function AdminUsers2(props) {
  
   
   function selectUser(e) {
-    const userId = e.target.value;
+    var userId = e.target.value;
+    console.log('userId:',userId)
    
-    if (!e.target.checked) {
-      const seleccion = seleccionados.filter(usuario => usuario._id !== userId);
+    if (!e.target.checked) 
+    {
+       let seleccion = seleccionados.filter(usuario => usuario._id !== userId);
+       console.log('seleccion:',seleccion)
       setSeleccionados(seleccion);
     } else {
-    const usuarioCheck = usuarios.find(usuario => usuario._id === userId);
+    
+    
+    let usuarioCheck = usuarios.find(usuario => usuario._id === userId);
+    console.log('usuarioCheck:',usuarioCheck)
 
       setSeleccionados([...seleccionados, usuarioCheck]);
-    }
+      }
+    
 }
   
+useEffect(() => {
+  dispatch(getUsers());
+}, []);
 
 
   useEffect(() => {
-    const checkeds = document.getElementsByClassName("checkbox");
+    var checkeds = document.getElementsByClassName("checkbox");
     for (let i = 0; i < checkeds.length; i++) {
       checkeds[i].checked = false;
     }
@@ -76,14 +87,7 @@ export default function AdminUsers2(props) {
             />
           </div> 
 
-          <div >
-            <AdminUserProfile
-              users={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-          </div> 
-      
+         
         </div>
 
         <table id="tableright">
@@ -103,16 +107,18 @@ export default function AdminUsers2(props) {
             {usuarios.map((usuario) => (
              
              <tr key={usuario.id}>
-                <td>{usuario.email}</td>
+                 <td>
+                  <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
+                </td>
 
                 <td>{usuario.name}</td>
 
-                <td>{usuario.isPremium
+                <td>{usuario.isPremiun === true
                 ?'Premium'
                 :'Standar'}</td>
 
                 <td>{usuario.isBanned
-                ?'Bloqeuado'
+                ?'Bloqueado'
                 :'Activo'}</td>
                 
                 

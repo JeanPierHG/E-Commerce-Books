@@ -3,33 +3,37 @@ const initialState = {
   booksCopy: [],
   booksTop: [],
   booksAdmin: [],
+  booksAdminCopy: [],
   bookDetails: [],
   authors: [],
   authorsCopy: [],
   authorsAdmin: [],
+  authorsAdminCopy: [],
   authorDetails: [],
   users: [],
   usersCpoy: [],
   userLogged: [],
   cart: [],
   render: [],
+  carousel:[],
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_BOOKS":
+      const showBooks = action.payload.filter( book => book.isHidden===false)
       return {
         ...state,
-        books: action.payload,
-        booksCopy: action.payload,
-        booksTop: action.payload,
-        booksAdmin: action.payload,
+        books: showBooks,
+       
+        booksCopy: showBooks,
+        booksTop: showBooks,
       };
 
     case "GET_BOOKS_ADMIN":
       return {
         ...state,
-        booksCopy: action.payload,
+        booksAdminCopy: action.payload,
         booksAdmin: action.payload,
       };
 
@@ -38,6 +42,7 @@ function rootReducer(state = initialState, action) {
         ...state,
 
         authorsAdmin: action.payload,
+        authorsAdminCopy: action.payload,
       };
 
     case "GET_BOOK_TITLE":
@@ -52,7 +57,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_BOOK_TITLE_ADMIN":
-      const titleCopyAdmin = state.booksCopy;
+      const titleCopyAdmin = state.booksAdminCopy;
       const titleAdmin = titleCopyAdmin.filter((e) =>
         e.title.toLowerCase().includes(action.payload.toLowerCase())
       );
@@ -63,7 +68,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_AUTHOR_NAME_ADMIN":
-      const nameCopyAdmin = state.authorsCopy;
+      const nameCopyAdmin = state.authorsAdminCopy;
       const nameAdmin = nameCopyAdmin.filter(
         (e) =>
           e.name.toLowerCase().includes(action.payload.toLowerCase()) ||
@@ -101,11 +106,13 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_AUTHORS":
+
+      const showAuthors = action.payload.filter( author => author.isHidden===false)
+
       return {
         ...state,
-        authors: action.payload,
-        authorsCopy: action.payload,
-        authorsAdmin: action.payload,
+        authors: showAuthors,
+        authorsCopy: showAuthors,
       };
 
     case "GET_AUTHOR_DETAILS":
@@ -303,6 +310,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: [],
       };
+      
 
     case "ADD_FAV":
       return {
@@ -331,8 +339,19 @@ function rootReducer(state = initialState, action) {
             return book;
           }
         }),
-      };
-
+      }
+    case "ADD_TO_CAROUSEL":
+      return{
+        ...state,
+        carousel:[...state.carousel,action.payload].flat()
+      }
+    case "ADD_CUSTOM_CAROUSEL":
+      return{
+        ...state,
+        carousel:[...state.carousel,action.payload].flat()
+      }  
+      
+    
     default:
       return state;
   }

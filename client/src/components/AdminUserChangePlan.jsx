@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUserPlan ,getUsers } from "../actions";
 
@@ -11,16 +12,17 @@ export default function AdminUserChangePlan({users , setChanged , changed}) {
     users.map(usuario => {
       userIds.push(  usuario._id );
     });
-    setTimeout(function(){
-        dispatch(setUserPlan(userIds))
-    }, 5000);
-    
-    
+   dispatch(setUserPlan(userIds))
+
+  setTimeout(function(){
     dispatch(getUsers())
+  }, 500);
+ 
     setChanged(!changed);
-   // console.log("changed AHORA ES es: ", changed);
+
     userIds = [];
   }
+
 
   return (
     <div>

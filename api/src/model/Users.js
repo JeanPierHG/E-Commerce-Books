@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const userSchema = new Schema({
   nickname: {
     type: String,
@@ -46,7 +46,7 @@ const userSchema = new Schema({
   comments: [
     {
       type: Schema.Types.String,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
   isSuperAdmin: {
@@ -60,27 +60,31 @@ const userSchema = new Schema({
   readBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
   favouritesBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
   buyBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
   ratingBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
-});
+  isSubscribeNewsLetter: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-module.exports = model("Users", userSchema);
+module.exports = model('Users', userSchema)

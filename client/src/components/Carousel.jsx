@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import styles from "../Styles/Carousel.module.css";
 
 export default function Carousel() {
-  const books = useSelector((state) => state.booksCopy);
-  const lastBooks = books.slice(books.length - 5, books.length);
+  const lastBooks = useSelector((state) => state.carousel);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentBook, setcurrentBook] = useState(lastBooks[0]);
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +56,17 @@ export default function Carousel() {
             }}
           />
         </Link>
+        {
+          currentBook?.custom?
+          <div>
+            <h1>{currentBook?.title}</h1>
+            <p>{currentBook?.description}</p>
+          </div>:
+          <div>
+            <h3>Precio : {currentBook?.price}</h3>
+            <h3>Oferta : {currentBook?.newPrice}</h3>
+          </div>
+        }
         <div>
           <button onClick={previus} className={styles.buttons}>{"<"}</button>
           <button onClick={next} className={styles.buttons}>{">"}</button>

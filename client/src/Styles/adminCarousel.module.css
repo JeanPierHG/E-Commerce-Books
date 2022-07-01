@@ -1,0 +1,13 @@
+
+.cards{
+    background-color: grey;
+    width: 20rem;
+    height: 25rem;
+}
+.cardsContainer{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

@@ -7,7 +7,6 @@ const genres = require('./genres')
 const user = require('./users')
 const mercadopago = require('../mercadoPago/mercadoPago')
 
-
 router.use('/books', books)
 router.use('/authors', authors)
 router.use('/genres', genres)

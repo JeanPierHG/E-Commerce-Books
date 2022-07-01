@@ -1,8 +1,30 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import {getUsers, setUserPlan} from '../actions';
 import style from '../Styles/cardPremium.module.css';
 
-const CardPremium = () => {
+const CardPremium = ({mes, trimestral, anual}) => {
+
+    const dispatch = useDispatch();
+    const allUsers = useSelector(state => state.users);
+    const logged = useSelector(state => state.userLogged);
+    const userId = allUsers.filter((u) => u._id === logged[0]._id);
+    const navigate = useNavigate();
+
+    const handleSubmit = () => {
+        const id = [logged[0]._id];      
+        dispatch(setUserPlan(id));
+        alert('Felicidades ya Sos Premium');
+        navigate('/user');
+    }
+
+    useEffect(() => {
+        return () => {
+            dispatch(getUsers());
+        };
+    }, [dispatch]);
 
     return (
         <div className={style.container}>
@@ -10,7 +32,7 @@ const CardPremium = () => {
 
             <p>Herramientas para empezar a potencial tu desarrollo al máximo</p>
 
-            <h1>Ars 399/mes</h1>
+            <h1>Ars {mes} {trimestral} {anual}</h1>
 
             <li>Envio de podcast de interes</li>
             <li>Envio de notas de tu interes</li>
@@ -18,8 +40,14 @@ const CardPremium = () => {
             <li>Reseñas de textos selecionadas</li>
             <li>Resumen de tus libros favoritos</li>
 
-            <button>Lo quiero</button>
-        
+            <br />
+
+            {
+                userId[0].isPremiun === false ?
+                <button onClick={() => handleSubmit()}>Lo quiero</button> : 
+                <button disabled>Lo quiero</button>
+            }
+
         </div>
     )
 }

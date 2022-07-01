@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../Styles/DeleteData.module.css'
-import { deleteAuthor , showHideAuthor } from '../actions'
+import { deleteAuthor , getAuthors} from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -40,13 +40,7 @@ export default function DeleteAuthor() {
 //   })
 
 
-// function handleShowHideAuthor(id) {
-//   dispatch(showHideAuthor(id))
-//   alert('Modificado')
-//   navigate('/admin')
-// }
 
- 
   function handleDeleteAuthor(id) {
     dispatch(deleteAuthor(id))
     alert('Escritor Eliminado')
@@ -56,14 +50,19 @@ export default function DeleteAuthor() {
   function ShowAuthor(id) {
     console.log('SHOW:',id)
     dispatch(showAuthor(id))
+    
     alert('Modificado')
-    navigate('/admin')
+    setTimeout(function(){
+      dispatch(getAuthors()),500})
+   // navigate('/admin')
   }
 
   function HideAuthor(id) {
     dispatch(hideAuthor(id))
+    setTimeout(function(){
+      dispatch(getAuthors()),500})
     alert('Modificado')
-    navigate('/admin')
+    //navigate('/admin')
   }
 
 

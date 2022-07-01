@@ -1,74 +1,74 @@
-const { Router } = require("express");
+const { Router } = require('express')
 
-const Books = require("../model/Books");
-const Authors = require("../model/Author");
-const Genres = require("../model/Genres");
-const Users = require("../model/Users");
-const router = Router();
+const Books = require('../model/Books')
+const Authors = require('../model/Author')
+const Genres = require('../model/Genres')
+const Users = require('../model/Users')
+const router = Router()
 
-router.get("/", async function (req, res) {
+router.get('/', async function (req, res) {
   try {
     const books = await Books.find({})
       .populate({
-        path: "genres",
-        select: "genre",
+        path: 'genres',
+        select: 'genre',
       })
-      .populate({ path: "authors", select: "name", select: { _id: 0 } });
-    return res.json(books);
+      .populate({ path: 'authors', select: 'name', select: { _id: 0 } })
+    return res.json(books)
   } catch (error) {
-    console.log("FALLO GET BOOKS", error);
+    console.log('FALLO GET BOOKS', error)
   }
-});
+})
 
-router.get("/genre/:genre", async function (req, res) {
-  const { genre } = req.params;
-  console.log(genre);
+router.get('/genre/:genre', async function (req, res) {
+  const { genre } = req.params
+  console.log(genre)
   try {
     if (genre) {
       const books = await Books.find({})
         .populate({
-          path: "genres",
+          path: 'genres',
           select: { genre: 1, _id: 0 },
         })
         .populate({
-          path: "authors",
+          path: 'authors',
           select: { name: 1, _id: 0, surname: 1, biography: 1 },
-        });
+        })
 
       const booksGenres = books?.filter((e) =>
         e.genres?.find((e) => e.genre === genre)
-      );
+      )
 
-      return res.json(booksGenres);
+      return res.json(booksGenres)
     }
   } catch (error) {
-    console.log("FALLO GENERO", error);
+    console.log('FALLO GENERO', error)
   }
-});
+})
 
-router.get("/search", async function (req, res) {
-  let { title, name } = req.query;
+router.get('/search', async function (req, res) {
+  let { title, name } = req.query
   try {
     if (title) {
-      title = title[0].toUpperCase() + title.slice(1);
+      title = title[0].toUpperCase() + title.slice(1)
       const booksNameFilter = await Books.find({
         title: { $regex: title },
-      }).populate(["authors", "genres"]);
-      res.status(200).json(booksNameFilter);
+      }).populate(['authors', 'genres'])
+      res.status(200).json(booksNameFilter)
     } else if (name) {
-      name = name[0].toUpperCase() + name.slice(1);
+      name = name[0].toUpperCase() + name.slice(1)
       const authorNameFilter = await Authors.find({
         name: { $regex: name },
-      }).populate("books");
-      res.status(200).json(authorNameFilter);
+      }).populate('books')
+      res.status(200).json(authorNameFilter)
     } else {
-      const books = await Books.find({}).populate(["authors", "genres"]);
-      res.json(books);
+      const books = await Books.find({}).populate(['authors', 'genres'])
+      res.json(books)
     }
   } catch (err) {
-    res.send(err.message);
+    res.send(err.message)
   }
-});
+})
 
 /* router.get("/alf/:order", async function (req, res) {
   const { order } = req.params;
@@ -118,19 +118,19 @@ router.get("/rating/:order", async function (req, res) {
   }
 }); */
 
-router.get("/:id", async function (req, res) {
-  const { id } = req.params;
+router.get('/:id', async function (req, res) {
+  const { id } = req.params
   try {
-    if (id.length !== 24) throw new Error("The id have 24 characters");
-    const book = await Books.findById(id).populate(["authors", "genres"]);
-    if (book === null) throw new Error("Book not found");
-    res.status(200).json(book);
+    if (id.length !== 24) throw new Error('The id have 24 characters')
+    const book = await Books.findById(id).populate(['authors', 'genres'])
+    if (book === null) throw new Error('Book not found')
+    res.status(200).json(book)
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(404).send(err.message)
   }
-});
+})
 
-router.post("/addBook", async function (req, res) {
+router.post('/addBook', async function (req, res) {
   const {
     title,
     authors,
@@ -143,23 +143,23 @@ router.post("/addBook", async function (req, res) {
     price,
     genres,
     review,
-  } = req.body;
+  } = req.body
 
   const arrayGenres = await genres.map(async (e) => {
-    const getGenre = await Genres.find({ genre: e }, { genre: 1 });
-    return getGenre;
-  });
-  const genre = await Promise.all(arrayGenres);
-  const aux = genre?.map((e) => e?.find((e) => e._id));
-  const genreId = aux.map((e) => e._id);
+    const getGenre = await Genres.find({ genre: e }, { genre: 1 })
+    return getGenre
+  })
+  const genre = await Promise.all(arrayGenres)
+  const aux = genre?.map((e) => e?.find((e) => e._id))
+  const genreId = aux.map((e) => e._id)
 
   const authorDb = await Authors.find({
     name: authors.name,
     surname: authors.surname,
-  });
+  })
 
   try {
-    if (!authorDb) throw new Error("Author not found");
+    if (!authorDb) throw new Error('Author not found')
     const newBook = new Books({
       title,
       authors: authorDb[0]._id,
@@ -172,108 +172,111 @@ router.post("/addBook", async function (req, res) {
       price,
       genres: genreId,
       review,
-    });
-    await newBook.save();
+    })
+    await newBook.save()
     const saveBook = await Books.find({ title: title })
       .populate({
-        path: "genres",
+        path: 'genres',
         select: { genre: 1, _id: 0 },
       })
       .populate({
-        path: "authors",
+        path: 'authors',
         select: { name: 1, _id: 0, surname: 1, biography: 1 },
-      });
-    authorDb[0].books.push(saveBook[0]._id);
-    await authorDb[0].save();
+      })
+    authorDb[0].books.push(saveBook[0]._id)
+    await authorDb[0].save()
 
-    return res.json(saveBook);
+    return res.json(saveBook)
   } catch (err) {
-    console.log("FALLO POST BOOKS", err.message);
+    console.log('FALLO POST BOOKS', err.message)
   }
-});
+})
 
-router.post("/update/:id", async (req, res) => {
-  const { id } = req.params;
-  const data = req.body;
+router.post('/update/:id', async (req, res) => {
+  const { id } = req.params
+  const data = req.body
 
   try {
     await Books.findByIdAndUpdate(id, data, () => {
       if (!data) {
-        throw new Error("Failed to update books");
+        throw new Error('Failed to update books')
       } else {
-        return res.status(200).send("Success update");
+        return res.status(200).send('Success update')
       }
-    });
+    })
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(404).send(err.message)
   }
-});
+})
 
-router.delete("/deleteBook/:id", async (req, res) => {
-  const { id } = req.params;
+router.delete('/deleteBook/:id', async (req, res) => {
+  const { id } = req.params
   try {
     await Books.deleteOne({ _id: id })
       .populate({
-        path: "genres",
-        select: "genre",
+        path: 'genres',
+        select: 'genre',
       })
-      .populate({ path: "authors", select: "name", select: { _id: 0 } });
+      .populate({ path: 'authors', select: 'name', select: { _id: 0 } })
 
-    res.status(204).send();
+    res.status(204).send()
   } catch {
-    res.status(404);
-    res.send({ error: "ESE LIBRO NO EXISTE" });
+    res.status(404)
+    res.send({ error: 'ESE LIBRO NO EXISTE' })
   }
-});
+})
 
-router.post("/updateRating/:idBook/:rating/:userId", async (req, res) => {
-  let { idBook, rating, userId } = req.params;
+/* router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
+  let { idBook, rating, userId } = req.params
 
-  const book = await Books.findById(idBook);
-  if (!book) res.status(404).send("Book not found");
-  const user = await Users.findById(userId);
-  if (!user) res.status(404).send("Usuario no encontrado");
-  book.ratingUsers.push(rating);
-  book.rating = (book.rating + Number(rating)) / book.ratingUsers.length;
-  const updateBook = await book.save();
-  book.ratingBooks.push(idBook);
-  const updateUser = await user.save();
+  const book = await Books.findById(idBook)
+  if (!book) return res.status(404).send('Book not found')
+  const user = await Users.findById(userId)
+  if (!user) return res.status(404).send('Usuario no encontrado')
+  book.ratingUsers.push(rating)
+  book.rating = (book.rating + Number(rating)) / book.ratingUsers.length
+  const updateBook = await book.save()
+  book.ratingBooks.push(idBook)
+  const updateUser = await user.save()
   updateBook && updateUser
     ? res.status(200).json(updateBook, updateUser)
-    : res.status(404).send("Error al grabar rating");
-});
+    : res.status(404).send('Error al grabar rating')
+})
 
-router.get("/getRating/:bookId", async (req, res) => {
-  const { bookId } = req.params;
-  const book = await Books.findById(bookId);
-  if (book && book.ratingUsers.length === 0) res.status(200).send(0);
-  book
-    ? res.status(200).send(book.rating / book.ratingUsers.length)
-    : res.status(404).send("Libro no encontrado");
-});
+router.get('/getRating/', async (req, res) => {
+  try {
+    const book = await Books.find({ rating: 1 })
+    console.log(book)
+    if (book.length === 0) throw new Error('no hay books')
 
-router.post("/hideBook/:id", async (req, res) => {
-  const { id } = req.params;
+    res.send(rating)
+  } catch (error) {
+    res.send(error.message)
+  }
+}) */
+
+router.post('/hideBook/:id', async (req, res) => {
+  const { id } = req.params
   try {
     if (id) {
-      await Books.findByIdAndUpdate(id, { isHidden: true });
-      res.send("The book is hidden now");
+      await Books.findByIdAndUpdate(id, { isHidden: true })
+      res.send('The book is hidden now')
     }
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(404).send(err.message)
   }
-});
+})
 
-router.post("/showBook/:id", async (req, res) => {
-  const { id } = req.params;
+router.post('/showBook/:id', async (req, res) => {
+  const { id } = req.params
   try {
     if (id) {
-      await Books.findByIdAndUpdate(id, { isHidden: false });
-      res.send("The book can be seen now");
+      await Books.findByIdAndUpdate(id, { isHidden: false })
+      res.send('The book can be seen now')
     }
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(404).send(err.message)
   }
-});
+})
 
-module.exports = router;
+module.exports = router

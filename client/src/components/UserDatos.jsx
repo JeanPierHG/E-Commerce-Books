@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getUsers, postUserData} from '../actions';
+import {getUsers, postUserData, setUserPlan} from '../actions';
 import UserDatosPerfil from './UserDatosPerfil';
 
 const UserDatos = () => {
@@ -41,13 +41,20 @@ const UserDatos = () => {
     const handleClick = () => {
         setState('ok');
     }
+    
+    const handlePlanDelete = () => {
+        const id = [logged[0]._id];      
+        dispatch(setUserPlan(id));
+        alert('Desuscripción a "Soy Premium" con éxito');
+        navigate('/user');
+    }
 
     useEffect(() => {
         return () => {
             dispatch(getUsers());
         };
     }, [dispatch]);
- 
+
     return (
         <div>
             <Link to='/user'><p>Volver</p></Link>
@@ -86,28 +93,55 @@ const UserDatos = () => {
                 </fieldset>
             </form>
 
-            <form>
-                <fieldset>
-                    <legend>Suscripciones</legend>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>NewsLetter</th>
+                        <th>Soy Premium</th>
+                    </tr>
+                </thead>
 
-                    <h4>Al Newsletter</h4>
+                <tbody>
+                    {
+                        userId?.map(u => (
+                            <tr key={u._id}>
 
-                    <label htmlFor="news">SI</label>
-                    <input type="radio" name="news" value='Si' />
+                                <td>{u.name}</td>
 
-                    <label htmlFor="news">NO</label>
-                    <input type="radio" name="news" value='No' checked/>
+                                <td>
+                                    {
+                                        u.isAdmin
+                                        ?'Si'
+                                        :'No' 
+                                    }
+                                </td>
 
-                    <h4>Soy premium</h4>
+                                <td>
+                                    {
+                                        u.isPremiun
+                                        ?'Si'
+                                        :'No' 
+                                    }
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
 
-                    <label htmlFor="premium">SI</label>
-                    <input type="radio" name="premium" value='Si' />
+            {
+                <button>Baja al NewsLetter</button>
+            }
 
-                    <label htmlFor="premium">NO</label>
-                    <input type="radio" name="premium" value='No' checked/>
-                </fieldset>
-            </form>
+            {
+                userId[0].isPremiun === false ?
+                <button disabled>Baja a Soy Premium</button> :
+                <button onClick={handlePlanDelete}>Baja a Soy Premium</button> 
+            }
+            
 
+            <br />
             <button onClick={handleClick}>Ver mis datos</button>
 
             {

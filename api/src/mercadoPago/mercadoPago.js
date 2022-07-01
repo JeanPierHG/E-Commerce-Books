@@ -1,22 +1,22 @@
-const { Router } = require("express");
-const router = Router();
+const { Router } = require('express')
+const router = Router()
 
 // SDK de Mercado Pago
-const mercadopago = require("mercadopago");
+const mercadopago = require('mercadopago')
 
 // Agrega credenciales
 mercadopago.configure({
-  access_token: "PROD_ACCESS_TOKEN",
-});
+  access_token: 'PROD_ACCESS_TOKEN',
+})
 
-router.post("/orden", (req, res) => {
-  const { carrito } = req.body;
+router.post('/orden', (req, res) => {
+  const { carrito } = req.body
 
   const itemsMp = carrito?.map((e) => ({
     title: e.title,
     unit_price: Number(e.price),
     quantity: Number(e.quantity),
-  }));
+  }))
 
   let preference = {
     items: itemsMp,
@@ -24,35 +24,34 @@ router.post("/orden", (req, res) => {
     payment_methods: {
       excluded_payment_type: [
         {
-          id: "atm",
+          id: 'atm',
         },
       ],
       installments: 4,
     },
 
     back_urls: {
-      success: "http://localhost:8080/feedback",
-      failure: "http://localhost:8080/feedback",
-      pending: "http://localhost:8080/feedback",
+      success: 'http://localhost:8080/feedback',
+      failure: 'http://localhost:8080/feedback',
+      pending: 'http://localhost:8080/feedback',
     },
-    auto_return: "approved",
-  };
+    auto_return: 'approved',
+  }
 
   mercadopago.preferences
     .create(preference)
 
-
     .then(function (response) {
-        console.info('RESPONDIO')
-        global.id =response.body.id
-        console.log(response.body)
+      console.info('RESPONDIO')
+      global.id = response.body.id
+      console.log(response.body)
       res.json({
         id: global,
-      });
+      })
     })
     .catch(function (error) {
-      console.log('FALLO MERCADO PAGO',error);
-    });
-});
+      console.log('FALLO MERCADO PAGO', error)
+    })
+})
 
-module.exports = router;
+module.exports = router

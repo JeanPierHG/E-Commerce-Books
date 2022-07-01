@@ -37,7 +37,7 @@ import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
-import AdminPro from "./components/AdminPro";
+import AdminPro from "./components/AdminPro/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
@@ -47,34 +47,17 @@ import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
 import StockTable from "./components/StockTable";
 import AdminUsers2 from "./components/AdminUsers2";
-import CreateAdmin from "./components/CreateAdmin";
+import CreateAdmin from "./components/AdminPro/CreateAdmin";
 import UserFav from "./components/UserFav";
+import { AdminProProfile } from "./components/AdminPro/AdminProProfile";
+import AdminUserProfile from "./components/AdminUserProfile";
+import ProtectedRouteBan from "./components/ProtectedRouteBan";
+import Banned from "./components/Banned";
 
 function App() {
   const dispatch = useDispatch();
 
-  //const{ user, isAuthenticated , isLoading} = useAuth0()
-
-  // const usuario = usuarios.filter(u=>u.email === user.email)
-
-  // const [users, setUsers] = useState(null);
-
-  // const handleLoginAdmin = () =>
-  //   setUsers({
-  //     id: "1",
-  //     name: "guille",
-  //     roles: ["admin"],
-  //   });
-
-  // const handleLogoutAdmin = () => setUsers(null);
-
-  // const handleLoginUser = () =>
-  //   setUsers({
-  //     id: "1",
-  //     name: "guille",
-  //     roles: ["user"],
-  //   });
-  // const handleLogoutUser = () => setUsers(null);
+ 
 
   useEffect(() => {
     dispatch(getBooks());
@@ -89,6 +72,7 @@ function App() {
   }, [dispatch]);
 
   const usuario = useSelector((state) => state.userLogged);
+  console.log('appp:',usuario)
 
   return (
     <BrowserRouter>
@@ -96,25 +80,22 @@ function App() {
       {usuario.length === 1 && usuario[0].isAdmin ? <NavBarAdmin /> : ""}
 
       <div className="main-without-nav">
-        {/* {users ? (
-          <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
-        ) : (
-          <button onClick={handleLoginAdmin}>Sign In Admin</button>
-        )}
-
-        {users ? (
-          <button onClick={handleLogoutUser}>Sign Out User</button>
-        ) : (
-          <button onClick={handleLoginUser}>Sign In User</button>
-        )} */}
+       
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route path="home" element={<Home />} />
-          <Route exact path="/aboutus" element={<AboutUs />} />
-          <Route exact path="/faq" element={<FAQ />} />
-          <Route exact path="/author" element={<Author />} />
-          <Route exact path="/book/:id" element={<BookDetails />} />
-          <Route exact path="/author/:id" element={<AuthorDetails />} />
+           
+            <Route path="/home" element={<Home />} />
+            <Route exact path="/aboutus" element={<AboutUs />} />
+            <Route exact path="/faq" element={<FAQ />} />
+            <Route exact path="/author" element={<Author />} />
+            <Route exact path="/book/:id" element={<BookDetails />} />
+            <Route exact path="/author/:id" element={<AuthorDetails />} />
+         
+           <Route element={<ProtectedRoute isAllowed={usuario.length === 1 && usuario[0].isBanned === true} />}>
+            <Route path="/banned" element={<Banned />} />
+          </Route>
+
+          
 
           <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/cart" element={<ShoopingCart />} />
@@ -172,6 +153,30 @@ function App() {
                 }
               >
                 <CreateAdmin />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminproprofile"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
+              >
+                <AdminProProfile />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/adminuserprofile/:id"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+              >
+                <AdminUserProfile />
               </ProtectedRoute>
             }
           />

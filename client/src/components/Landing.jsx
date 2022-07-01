@@ -11,12 +11,7 @@ export default function Landing() {
   const dispatch = useDispatch()
   const { user } = useAuth0()
 
-
-
-  // if(user){useEffect(()=>{
-  //   dispatch(postUser(user))
-  // },[dispatch,user])}
-
+  
 
   return (
     <div className={styles.container}>
@@ -26,6 +21,9 @@ export default function Landing() {
           Dicen que la felicidad no se puede comprar, pero siempre puedes
           encontrarla en un libro
         </h3>
+        {user
+        ?<h1>Bienvenido: {user.name}!!!</h1>
+        :''}
         <Link to="/home">
           <button className={styles.btn}>¡Vamos!</button>
         </Link>

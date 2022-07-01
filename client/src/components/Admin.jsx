@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Styles/DashboardAdmin.module.css'
+import { getBooksAdmin , getAuthorsAdmin } from '../actions'
+import { useDispatch } from 'react-redux'
 
 
 export function Admin() {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getBooksAdmin())
+  })
+
+  useEffect(()=>{
+    dispatch(getAuthorsAdmin())
+  })
 
   return (
     <div className={styles.admin}>

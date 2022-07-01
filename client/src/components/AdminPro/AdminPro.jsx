@@ -1,7 +1,7 @@
 import React from "react";
 import CreateAdmin from "./CreateAdmin";
 import { useSelector } from "react-redux";
-import styles from '../Styles/DashboardAdmin.module.css'
+import styles from '../../Styles/DashboardAdmin.module.css'
 import { Link } from "react-router-dom";
 
 

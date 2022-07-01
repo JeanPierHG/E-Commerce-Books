@@ -1,10 +1,11 @@
 
 import { useNavigate } from "react-router-dom";
-import { postUser, getUsers, setToAdmin } from "../actions";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AdminProSet from "./AdminProSet";
-import AdminUserProfile from "./AdminUserProfile";
+import { getUsers , postUser , setToAdmin } from "../../actions";
+import {Link} from 'react-router-dom';
+import AdminUserProfile from "../AdminUserProfile";
 
 
 // {id: userId, changes:{isAdmin:true}}
@@ -23,26 +24,33 @@ export default function CreateAdmin(props) {
 
  
   
-
-
-
   function selectUser(e) {
-    const userId = e.target.value;
+    var userId = e.target.value;
+    console.log('userId:',userId)
    
-    if (!e.target.checked) {
-      let seleccionados = uSelected.filter(usuario => usuario._id !== userId);
-      setSeleccionados(seleccionados);
+    if (!e.target.checked) 
+    {
+       let seleccion = seleccionados.filter(usuario => usuario._id !== userId);
+       console.log('seleccion:',seleccion)
+      setSeleccionados(seleccion);
     } else {
-    const uCheck = usuarios.find(usuario => usuario._id === userId);
+    
+    
+    let usuarioCheck = usuarios.find(usuario => usuario._id === userId);
+    console.log('usuarioCheck:',usuarioCheck)
 
-      setSeleccionados([...seleccionados, uCheck]);
-    }
+      setSeleccionados([...seleccionados, usuarioCheck]);
+      }
+    
 }
   
+useEffect(() => {
+  dispatch(getUsers());
+}, []);
 
 
   useEffect(() => {
-    const checkeds = document.getElementsByClassName("checkbox");
+    var checkeds = document.getElementsByClassName("checkbox");
     for (let i = 0; i < checkeds.length; i++) {
       checkeds[i].checked = false;
     }
@@ -56,24 +64,16 @@ export default function CreateAdmin(props) {
     <div >
       <h1 >Control de usuarios</h1>
       <div >
+
         <div id="tableleft">
-           <div >
+          <div>
             <AdminProSet
               users={seleccionados}
               changed={changed}
               setChanged={setChanged}
             />
           </div> 
-
-          <div >
-            <AdminUserProfile
-              users={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-          </div> 
-      
-        </div>
+       </div>
 
         <table id="tableright">
           <thead class="thead-warning">
@@ -89,8 +89,10 @@ export default function CreateAdmin(props) {
           <tbody>
             {usuarios.map((usuario) => (
              
-             <tr key={usuario.id}>
-                <td>{usuario.email}</td>
+             <tr key={usuario._id}>
+                <td>
+                  <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
+                </td>
                 <td>{usuario.name}</td>
                 
                 <td>{usuario.isAdmin ? "Si" : "No"}</td>
