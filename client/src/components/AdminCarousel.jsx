@@ -1,167 +1,88 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CardBook from "./CardBook";
+import React from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Image } from 'cloudinary-react'
 import styles from '../Styles/adminCarousel.module.css'
-import { addBookCarousel } from "../actions";
+import styledButton from '../Styles/Button.module.css'
+export default function AdminCarousel() {
+  const dispatch = useDispatch()
 
-export default function AdminCarousel(){
+  const [image, setImage] = useState({ files: '' })
+  const [publicId, setPublicId] = useState('')
 
-    const dispatch=useDispatch();
-    const books=useSelector(state=>state.books)
-    const carousel=useSelector(state=>state.carousel)
-    console.log('state.carousel =',carousel)
+  const Images = useSelector((state) => state.carousel)
 
-    const [state,setState]=useState({
-        addbook:false,
-        addBookOffer:false,
-        addPackage:false,
-        custom:false,
-    })
-    
-    const [input,setInput]=useState({
-        title:'',
-        cover:'',
-        description:'',
-        price:'',
-        custom:true,
-    })
+  const uploadImage = () => {
+    const formData = new FormData()
+    formData.append('file', image)
+    formData.append('upload_preset', 'preset_library')
+    alert('Imagen añadida al carrusel!')
 
-    const [addForm,setAddForm]=useState(false)
-    const [addCustomform,setAddCustomForm]=useState(false)
-    const [currentBook,setCurrentBook]=useState({
-        title:'',
-        _id:'',
-        price:'',
-        newPrice:'',
-        cover:'',
-    })
-    function handleInputs(e){
-        e.preventDefault();
-        setInput({
-            ...input,
-            [e.target.name]:e.target.value
-        })
-        console.log('input :',input)
-    }
-
-    function addBook(e){
-        e.preventDefault();
-        setAddCustomForm(false);
-        setState({
-            addbook:true,
-            addBookOffer:false,
-            addPackage:false,
-            custom:false,
-        })
-    }
-
-    function addPackage(e){
-        e.preventDefault();
-        setState({
-            addbook:false,
-            addBookOffer:false,
-            addPackage:true,
-            custom:false,
-        })
-    }
-    function addCustom(e){
-        e.preventDefault();
-        setState({
-            addbook:false,
-            addBookOffer:false,
-            addPackage:true,
-            custom:false,
-        })
-    }
-    function handleAdd(e){
-        e.preventDefault();
-        setAddForm(true);
-        let book=e.target.value.split(',')
-        setCurrentBook({title:book[0],_id:book[1],cover:book[2],price:book[3]})
-        console.log('currentBook',currentBook)
-    }
-    function handleNewPrice(e){
-        e.preventDefault();
-        setCurrentBook({...currentBook,newPrice:e.target.value})
-        console.log('currentBook',currentBook)
-    }
-    function handleSend(e){
-        e.preventDefault();
-        dispatch(addBookCarousel(currentBook))
-    }
-    function handleSendForm(e){
-        e.preventDefault();
-        dispatch(addBookCarousel(input))
-    }
-    function addFormFalse(e){
-        e.preventDefault();
-        setAddForm(false);
-        setAddCustomForm(false);
-    }
-    function addCustomForm(e){
-        e.preventDefault();
-        setAddCustomForm(true);
-        setAddForm(false)
-        setState({
-            addbook:false,
-            addBookOffer:false,
-            addPackage:false,
-            custom:true
-        })
-    }
-
-    
-
-    return(
-        <div>
-            <h1>Manejo de Carrusel</h1>
-            <h3>Opciones:</h3>
-            <button onClick={e=>addBook(e)}>Agregar Libro</button>
-            {/* <button onClick={e=>addBookOffer(e)}>Agregar libro con descuento</button> */}
-            {/* <button onClick={e=>addPackage(e)}>Agregar paquete</button> */}
-            <button onClick={e=>addCustomForm(e)}>Agregar personalizado</button>
+    axios
+      .post('https://api.cloudinary.com/v1_1/dflpxjove/image/upload', formData)
+      .then((response) => {
+        console.log(response)
+        setPublicId(response.data.secure_url)
+        console.log(publicId)
+        axios
+          .post(
+            'https://ecommercehenryx.herokuapp.com/carrousel/addCarrousel',
             {
-                addForm?<div>
-                   <h4> Añadiendo {currentBook.title} al carousel </h4>
-                   <p>Precio del libro : {currentBook.price}</p>
-                   <p>Añadir precio de oferta :</p>
-                   <input type="number" value={currentBook.newPrice} onChange={e=>handleNewPrice(e)}/>
-                   <button onClick={e=>handleSend(e)}>Añadir</button>
-                   <button onClick={e=>addFormFalse(e)}>Cancelar</button>
-                </div>:null
+              image: response.data.secure_url,
             }
-            {
-                addCustomform?<div>
-                    <form onSubmit={e=>handleSendForm(e)}>
-                        <label>Titulo :</label>
-                        <input type="text" name='title' value={input.title} onChange={e=>{handleInputs(e)}} />
-                        <label >Imagen(URL)</label>
-                        <input type="text" name='cover' value={input.cover} onChange={e=>{handleInputs(e)}} />
-                        <label>descripcion :</label>
-                        <input type="text" name='description' value={input.description}  onChange={e=>{handleInputs(e)}}/>
-                        <label>Precio :</label>
-                        <input type="text" name='price' value={input.price} onChange={e=>{handleInputs(e)}}/>
-                        <button type="Submit">Añadir</button>
-                        <button onClick={e=>addFormFalse(e)}>Cancelar</button>
-                    </form>
-                </div>:null
-            }
-            {
-                state.addbook?books.map((book, index) => {
-                    return (
-                      <div key={index} className={styles.cardsContainer}>
-                        <div className={styles.cards}>
-                            <h3>{book.title}</h3>
-                            <button value={[book.title.replaceAll(',',' '),book._id,book.cover,book.price]} onClick={e=>handleAdd(e)}>Add</button>
-                            <img src={book.cover} width='200px' alt="not Found" />
-                        </div>
-                      </div>
-                    )
-                  })
-                    
-                :null
-            }
-        </div>
+          )
+          .then(() => {
+            setImage({ files: '' })
+          })
+      })
+  }
+
+  function handleDelete(e) {
+    e.preventDefault()
+    alert('Imagen borrada!')
+    axios.delete(
+      'https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/' +
+        e.target.value
     )
+  }
+
+  return (
+    <div>
+      <input
+        type='file'
+        onChange={(e) => {
+          setImage(e.target.files[0])
+        }}
+        className={styles.input}
+      />
+      {console.log('image :', image)}
+      {image.name ? (
+        <button onClick={uploadImage} className={styles.button}>
+          Añadir
+        </button>
+      ) : null}
+
+      <div className={styles.cardsContainer}>
+        {Images.map((e) => {
+          return (
+            <div className={styles.card}>
+              <Image
+                cloudName='dflpxjove'
+                publicId={e.image}
+                className={styles.img}
+              />
+              <button
+                value={e._id}
+                onClick={(e) => handleDelete(e)}
+                className={styles.buttonX}
+              >
+                X
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }

@@ -192,6 +192,12 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
     const book = await Books.findById(idBook)
     const user = await Users.findById(idUser)
 
+    const userBooksFavourites = user.favouritesBooks
+    userBooksFavourites.forEach((bookFav) => {
+      if (bookFav.toString() === book._id.toString())
+        throw new Error('El libro ya ha sido añadido anteriormente')
+    })
+
     user.favouritesBooks.push(book._id)
 
     const userUpdated = await user.save()
@@ -251,6 +257,44 @@ router.post('/toggleNewsletter', async (req, res) => {
         user.isSubscribeNewsLetter = true
         await user.save()
         return res.send('The user is now subscribe a newsletter')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleSuperAdmin', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isSuperAdmin) {
+          user.isSuperAdmin = false
+          await user.save()
+        } else {
+          user.isSuperAdmin = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isSuperAdmin) {
+        user.isSuperAdmin = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isPremiun = true
+        await user.save()
+        return res.send('The user is now admin')
       }
     }
   } catch (error) {

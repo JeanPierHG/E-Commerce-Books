@@ -1,13 +1,91 @@
-
-.cards{
-    background-color: grey;
-    width: 20rem;
-    height: 25rem;
+.card {
+  position: relative;
+  background-color: #285874;
+  width: 20rem;
+  height: 10rem;
+  margin: 1rem;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px #285874;
 }
-.cardsContainer{
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 5%;
+.img {
+  max-height: 10rem;
+  width: 20rem;
+  border-radius: 8px;
+}
+.input {
+  font-size: x-large;
+  margin-top: 4rem;
+}
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+.buttonX {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  background-color: #f00202;
+  color: white;
+  width: 2rem;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.buttonX::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.buttonX::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.buttonX:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  background-color: #2e9caa;
+  color: white;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }

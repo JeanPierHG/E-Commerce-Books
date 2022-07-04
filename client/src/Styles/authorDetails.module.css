@@ -1,40 +1,35 @@
 .container {
-  height: 100%;
-  background: linear-gradient(
-    298.8deg,
-    rgba(204, 214, 38, 0.85) -59.75%,
-    rgba(27, 163, 168, 0.85) 26.91%,
-    rgba(55, 61, 81, 0.85) 98.72%
-  );
 }
-
+.widthScreen {
+  display: flex;
+  justify-content: center;
+}
 .content {
   display: flex;
   align-items: center;
-  height: 300px;
-  width: 80%;
   justify-content: space-around;
-  margin-left: 10%;
   font-size: large;
   font-weight: bold;
+  max-width: 70%;
+  gap: 2rem;
 }
-
+.authorName {
+  font-size: 48px;
+}
 .info {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 1%;
-}
-
-.bio {
-  width: 50%;
 }
 
 .imageContainer {
-  max-height: 200px;
-  text-align: center;
 }
 
+.image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
 .carrusel {
   align-items: center;
   width: 100%;
@@ -42,7 +37,15 @@
 }
 
 .libro {
-  margin-left: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.containerButtonsBooks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
 }
 
 .btn {
@@ -75,13 +78,13 @@ li {
   list-style: none;
 }
 
-.cart{
-  position:fixed;
+.cart {
+  position: fixed;
   top: 5rem;
   right: 1rem;
   border-radius: 50px;
   z-index: 2;
 }
-.cart:hover{
+.cart:hover {
   background-color: #77c9d4;
 }

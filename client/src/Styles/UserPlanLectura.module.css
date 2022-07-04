@@ -1,0 +1,50 @@
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  background-color: #35aae0;
+  color: white;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+
+  margin-top: 1rem;
+}
+
+.containerRadioButtons {
+  display: flex;
+  gap: 2rem;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.containerInputs input {
+  font-size: 22px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #93dbfc;
+  transition: all 0.2s;
+}
+.containerInputs input:focus {
+  outline: 5px solid #93dbfc;
+}

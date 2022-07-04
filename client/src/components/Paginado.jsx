@@ -1,10 +1,10 @@
-import styles from "../Styles/Paginado.module.css";
+import styles from '../Styles/Paginado.module.css'
 
 export default function Paginado({ bookPerPage, books1, paginado, page }) {
-  const pageNum = [];
+  const pageNum = []
 
   for (let i = 1; i <= Math.ceil(books1 / bookPerPage); i++) {
-    pageNum.push(i);
+    pageNum.push(i)
   }
   return (
     <div className={styles.nav}>
@@ -20,5 +20,5 @@ export default function Paginado({ bookPerPage, books1, paginado, page }) {
           </div>
         ))}
     </div>
-  );
+  )
 }

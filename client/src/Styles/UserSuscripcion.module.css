@@ -1,0 +1,37 @@
+.containerButton {
+  display: flex;
+  gap: 2rem;
+}
+
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 32px;
+  background-color: #2e9caa;
+  color: white;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

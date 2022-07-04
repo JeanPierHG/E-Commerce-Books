@@ -1,14 +1,46 @@
-
 .container {
-    width: 25rem;
-    height: 25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center center;
-    margin:15px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid #015249;
-    background-color: rgba(128, 128, 128, 0.289);
-    transition: 500ms;
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center center;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #015249;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  transition: 500ms;
+  color: white;
+}
+.button {
+  margin-top: 10px;
+  z-index: 1;
+  position: relative;
+  font-size: 32px;
+  background-color: #2e9caa;
+  color: white;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }

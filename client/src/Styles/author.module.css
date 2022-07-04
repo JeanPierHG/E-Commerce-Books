@@ -1,19 +1,35 @@
-.authors{
-    background: url('../imgs/Landing.jpg');
-     width: 100%;
+.authors {
+  background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.5) 100%,
+      rgba(0, 0, 0, 0.23571435410101538) 100%
+    ),
+    url('../imgs/Landing.jpg');
+  width: 100%;
+  padding: 50px 0;
 }
-.container{
-    height: 100%;
-    background: linear-gradient(
-      298.8deg,
-      rgba(205, 214, 38, 0.396) -59.75%,
-      rgba(27, 163, 168, 0.869) 26.91%,
-      rgb(55, 61, 81) 98.72%
-    );
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.container {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 1rem 2rem;
 }
-.Link{
-    text-decoration: none;
+.Link {
+  text-decoration: none;
+}
+
+.selectOrder {
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 2px solid #77c9d4;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.containerActions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-items: center;
+  align-items: center;
 }

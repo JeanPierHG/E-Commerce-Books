@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-bottom: 50px;
-  margin-top: 50px;
 }
 
 .btnNav {

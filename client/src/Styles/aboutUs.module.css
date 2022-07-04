@@ -1,12 +1,19 @@
-
 .container {
-
+  padding: 2rem 10rem;
+}
+.container h1 {
+  text-align: center;
 }
 
-.imageContainer {
-    
+.containerData {
+  display: flex;
+  gap: 2rem;
 }
 
 .image {
-    max-width: 20%;
+  max-width: 400px;
+}
+
+.titleDescription {
+  font-size: 24px;
 }

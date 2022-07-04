@@ -1,0 +1,21 @@
+.container {
+  padding: 2rem 10rem;
+}
+
+.question {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  background-color: rgb(107, 224, 215);
+  padding: 5px 1rem;
+}
+
+.subtitle {
+  font-size: 24px;
+}
+
+.ask {
+  background-color: rgba(0, 255, 170, 0.075);
+  margin: 0;
+  padding: 1rem;
+}

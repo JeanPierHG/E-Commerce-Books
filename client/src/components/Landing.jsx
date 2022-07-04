@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../Styles/Landing.module.css";
 import { postUser } from "../actions";
@@ -10,6 +10,10 @@ export default function Landing() {
 
   const dispatch = useDispatch()
   const { user } = useAuth0()
+  const usuario = useSelector ( state => state.userLogged)
+  console.log(usuario)
+
+ 
 
   
 
@@ -21,8 +25,9 @@ export default function Landing() {
           Dicen que la felicidad no se puede comprar, pero siempre puedes
           encontrarla en un libro
         </h3>
-        {user
-        ?<h1>Bienvenido: {user.name}!!!</h1>
+        {usuario.length===1
+        ?(usuario[0].name?<h1>Bienvenido {usuario[0].name}!!!</h1>
+        :<h1>Bienvenido {usuario[0].nickname}!!!</h1>)
         :''}
         <Link to="/home">
           <button className={styles.btn}>¡Vamos!</button>

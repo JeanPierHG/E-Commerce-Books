@@ -6,25 +6,32 @@
     rgba(27, 163, 168, 0.85) 26.91%,
     rgba(55, 61, 81, 0.85) 98.72%
   );
+  padding: 50px 0;
 }
-.cart{
-  position:fixed;
-  top: 10rem;
-  right: 4rem;
-  border-radius: 50px;
-  z-index: 2;
-}
-.cart:hover{
+
+.containerCart {
+  position: fixed;
   background-color: #77c9d4;
+  top: 5rem;
+  right: 2rem;
+  z-index: 2;
+  border-radius: 100%;
+  padding: 1rem;
 }
+.cart {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
 .home {
-  background: url("../imgs/Landing.jpg");
   width: 100%;
 }
 
 .sideBar_containerCard {
   display: flex;
   justify-content: space-between;
+  padding: 5rem 0;
 }
 
 .content {
@@ -35,14 +42,10 @@
   margin-top: 5%;
 }
 
-.ubiOptions {
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
 .p {
   font-weight: bold;
   color: white;
+  margin: 0;
 }
 
 .options {
@@ -60,15 +63,23 @@
   cursor: pointer;
 }
 
+.containerActionsAndCards {
+  width: 100%;
+  padding: 0 1rem;
+}
 .card {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  flex-direction: row;
-  width: 70vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }
 
 .link {
   text-decoration: none;
   color: black;
+}
+
+.containerOrderAndPaginado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }

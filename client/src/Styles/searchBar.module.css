@@ -1,17 +1,47 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  background-color: #2e9caa;
+  height: 3rem;
+  border-radius: 4px;
+  transition: 500ms;
+  color: white;
+}
 
-.input{
-    font-size: 18px;
-    margin:3px;
-    position:relative;
-    opacity: 0.9;
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
 }
-.button{
-    font-size: 17px;
-    background-color:white;
-    height: 26px;
-    border:0;
-    transition: 500ms;
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
 }
-.button:hover{
-    background-color: #77C9D4;
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.input {
+  font-size: 18px;
+  padding: 5px 10px;
+  border: 4px solid #2e9caa;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: 5px solid #2e9caa;
 }

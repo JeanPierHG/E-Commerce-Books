@@ -1,0 +1,32 @@
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  background-color: #2e9caa;
+  height: 3rem;
+  border-radius: 4px;
+  transition: 500ms;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

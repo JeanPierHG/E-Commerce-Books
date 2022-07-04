@@ -11,21 +11,23 @@ const initialState = {
   authorsAdminCopy: [],
   authorDetails: [],
   users: [],
-  usersCpoy: [],
+  usersCopy: [],
   userLogged: [],
   cart: [],
   render: [],
-  carousel:[],
+  carousel: [],
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_BOOKS":
-      const showBooks = action.payload.filter( book => book.isHidden===false)
+      const showBooks = action.payload.filter(
+        (book) => book.isHidden === false
+      );
       return {
         ...state,
         books: showBooks,
-       
+
         booksCopy: showBooks,
         booksTop: showBooks,
       };
@@ -106,8 +108,9 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_AUTHORS":
-
-      const showAuthors = action.payload.filter( author => author.isHidden===false)
+      const showAuthors = action.payload.filter(
+        (author) => author.isHidden === false
+      );
 
       return {
         ...state,
@@ -186,6 +189,42 @@ function rootReducer(state = initialState, action) {
         books: booksOrderByPrice,
       };
 
+    case "ORDER_BY_RATING":
+      let booksOrderByRating =
+        action.payload === "desc"
+          ? state.books.sort((a, b) => {
+              if (a.rating > b.rating) return 1;
+              if (b.rating > a.rating) return -1;
+              return 0;
+            })
+          : state.books.sort((a, b) => {
+              if (a.rating > b.rating) return -1;
+              if (b.rating > a.rating) return 1;
+              return 0;
+            });
+      return {
+        ...state,
+        books: booksOrderByRating,
+      };
+
+    case "ORDER_BY_NAME_AUTHOR":
+      let authorsOrderByName =
+        action.payload === "Asc"
+          ? state.authors.sort((a, b) => {
+              if (a.name > b.name) return 1;
+              if (b.name > a.name) return -1;
+              return 0;
+            })
+          : state.authors.sort((a, b) => {
+              if (a.name > b.name) return -1;
+              if (b.name > a.name) return 1;
+              return 0;
+            });
+      return {
+        ...state,
+        authors: authorsOrderByName,
+      };
+
     case "ORDER_BY_NAME_ADMIN_AUTHOR":
       let authorsAdminOrderByName =
         action.payload === "Asc"
@@ -244,7 +283,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        usersCpoy: action.payload,
+        usersCopy: action.payload,
       };
 
     case "POST_USER":
@@ -253,6 +292,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         userLogged: [action.payload],
       };
+
+    case "GET_USER_NAME":
+      const nameUCopy = state.usersCopy;
+      const nameU = nameUCopy.filter(
+        (e) =>
+          e.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          e.nickname.toLowerCase().includes(action.payload.toLowerCase()) ||
+          e.email.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        users: nameU,
+      };
+
     case "ADD_TO_CART":
       let newCart = state.cart;
       let repeats = false;
@@ -310,12 +364,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: [],
       };
-      
 
     case "ADD_FAV":
       return {
         ...state,
-        userLogged: [action.payload],
+        /* userLogged: [action.payload], */
       };
 
     case "DELETE_BOOK_FAV":
@@ -333,28 +386,23 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: state.books.map((book) => {
-          if (book.id === action.payload.id) {
-            return action.payload;
+          if (book._id === action.payload.book._id) {
+            return action.payload.book;
           } else {
             return book;
           }
         }),
-      }
-    case "ADD_TO_CAROUSEL":
-      return{
+        userLogged: [action.payload.user],
+      };
+
+    case "GET_CAROUSEL_IMAGES":
+      return {
         ...state,
-        carousel:[...state.carousel,action.payload].flat()
-      }
-    case "ADD_CUSTOM_CAROUSEL":
-      return{
-        ...state,
-        carousel:[...state.carousel,action.payload].flat()
-      }  
-      
-    
+        carousel: action.payload,
+      };
+
     default:
       return state;
   }
 }
-
 export default rootReducer;

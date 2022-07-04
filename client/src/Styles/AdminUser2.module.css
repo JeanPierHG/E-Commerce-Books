@@ -1,0 +1,24 @@
+.containerAll {
+  margin-top: 100px;
+  text-align: center;
+  padding: 0 5rem;
+}
+
+.containerFlex {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.containerUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.containerActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

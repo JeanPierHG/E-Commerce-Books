@@ -1,0 +1,65 @@
+.containerUserPerfil {
+  padding: 1rem 2rem;
+}
+
+.containerTitle {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nicknamePerfil {
+  color: black;
+  font-size: 1.8rem;
+}
+
+.containerUserGrid {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.containerButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  border-right: 1px solid black;
+}
+
+.containerSection {
+  flex: 1;
+}
+.button {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  background-color: #2e9caa;
+  color: white;
+  height: 3rem;
+  border-radius: 10px;
+  transition: 500ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.button::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

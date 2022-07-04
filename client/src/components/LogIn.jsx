@@ -1,19 +1,21 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import style from '../Styles/nav.module.css';
-import { useDispatch } from "react-redux";
-import { postUser } from "../actions";
+import React from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { Button } from '@mui/material'
 
+export default function LogInButton() {
+  const { loginWithRedirect } = useAuth0()
+  //const dispatch = useDispatch()
 
-export default function LogInButton(){
+  // async function handleClick(e){
+  //     await  loginWithRedirect()
+  //     dispatch (postUser(user))
+  // }
 
-    const{loginWithRedirect} = useAuth0()
-   
-
-
-    return (
-        <div>
-            <button  onClick={()=>loginWithRedirect()}>LogIn</button>
-        </div>
-    )
+  return (
+    <div>
+      <Button variant='contained' onClick={() => loginWithRedirect()}>
+        LogIn
+      </Button>
+    </div>
+  )
 }

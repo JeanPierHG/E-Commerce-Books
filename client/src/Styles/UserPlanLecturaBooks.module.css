@@ -1,0 +1,11 @@
+.containerBooksRecommended {
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.containerBooksRecommended li img {
+  max-width: 200px;
+  height: 300px;
+}

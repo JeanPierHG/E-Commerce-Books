@@ -6,11 +6,13 @@ const authors = require('./authors')
 const genres = require('./genres')
 const user = require('./users')
 const mercadopago = require('../mercadoPago/mercadoPago')
+const carrousel = require('./carrousel')
 
 router.use('/books', books)
 router.use('/authors', authors)
 router.use('/genres', genres)
 router.use('/users', user)
 router.use('/mercadopago', mercadopago)
+router.use('/carrousel', carrousel)
 
 module.exports = router
