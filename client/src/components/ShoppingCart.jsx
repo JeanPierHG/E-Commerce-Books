@@ -85,7 +85,7 @@ export default function ShoopingCart(){
             <div className={styles.foot}>
                 <button onClick={handleClear} className={styles.buttonX}>Vaciar carrito</button>
                 {
-                    (products.length>0)?<button className={stylesbutton.button} onClick={handleClick}>Realizar compra</button>:null
+                    (products.length>0)?<button type="submit" className={stylesbutton.button} onClick={handleClick}>Realizar compra</button>:null
                 }
             </div>
         </div>
