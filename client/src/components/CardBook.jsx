@@ -12,6 +12,18 @@ export default function CardBook({ title, cover, price, rating, id }) {
   const { userLogged } = useSelector((state) => state);
   //const [ifRating, setIfRating] = useState();
   const ifRating = changeRating(id);
+  const isBuy = changeBuy(id);
+
+  function changeBuy(id) {
+    if (userLogged.length > 0 && userLogged[0].buyBooks.length > 0) {
+      let result = userLogged[0].buyBooks.indexOf(id);
+      if (result === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
 
   function changeRating(id) {
     if (userLogged.length > 0 && userLogged[0].ratingBooks.length > 0) {
@@ -35,13 +47,22 @@ export default function CardBook({ title, cover, price, rating, id }) {
   return (
     <div className={styles.container}>
       <Link to={"/book/" + id}>
-        <img
-          className={styles.img}
-          src={cover}
-          alt="Not Found ):"
-          width="200x"
-          height="300"
-        />
+        <div className={styles.portada}>
+          <img
+            className={styles.img}
+            src={cover}
+            alt="Not Found ):"
+            width="200x"
+            height="300"
+          />
+          <div
+            className={
+              isBuy ? styles.comprado + " " + styles.show : styles.comprado
+            }
+          >
+            <span>COMPRADO</span>
+          </div>
+        </div>
       </Link>
       <div className={styles.block}>
         <h2>{title}</h2>

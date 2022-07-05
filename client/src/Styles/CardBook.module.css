@@ -58,3 +58,28 @@ h2 {
   color: #ffd43b;
   font-size: large;
 }
+
+.portada {
+  position: relative;
+  min-height: 300px;
+  min-width: 200px;
+}
+
+.comprado span {
+  text-decoration: none;
+  padding: 0 20px;
+  background-color: red;
+  color: white;
+  margin-left: -20px;
+}
+
+.comprado {
+  position: absolute;
+  top: 30px;
+  transform: rotate(315deg);
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
