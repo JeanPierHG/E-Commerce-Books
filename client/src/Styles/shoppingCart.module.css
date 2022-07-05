@@ -1,6 +1,123 @@
 
 .product{
+    position: relative;
+    background: -webkit-linear-gradient(70deg, #468ea2, #043b35);;
     display:flex;
     flex-direction: row;
-    background-color: grey;
+    justify-content: space-around;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 4rem;
+    margin: 10px;
 }
+.amount{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    flex-direction: row;
+   
+    width: 6rem;
+}
+.number{
+    font-size: x-large;
+    margin: 10px;
+}
+
+.remove{
+    display: flex;
+    flex-direction: row;
+}
+.datos{
+    font-size:x-large;
+    color: #286879;
+}
+
+
+
+/* button.module.css con width*/
+
+.button {
+    z-index: 1;
+    position: relative;
+    font-size: 18px;
+    background-color: #2e9caa;
+    height: 3rem;
+    width: 2rem;
+    border-radius: 4px;
+    transition: 500ms;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .button::after {
+    content: '';
+    position: absolute;
+    width: 3rem;
+    height: 100%;
+    background: #285874;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    transition: transform 200ms ease-in;
+  }
+  .button::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  .button:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+    /* ///////////////// */
+
+    .buttonX {
+        z-index: 1;
+        position: absolute;
+        top:9px;
+        right: 30px;
+        font-size: 18px;
+        background-color: #f00202;
+        color: white;
+        width: 6rem;
+        height: 3rem;
+        border-radius: 10px;
+        transition: 500ms;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      
+      .buttonX::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #285874;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        transition: transform 200ms ease-in;
+      }
+      .buttonX::after {
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+      .buttonX:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+.foot{
+    width: 80%;
+    position:relative;
+    left:15rem;
+    bottom: 60px;
+    margin:1rem;
+}
+.empity{
+    position: absolute;
+    top: 30%;
+    left:30%;
+    color:#285874
+  }
