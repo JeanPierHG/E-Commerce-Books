@@ -1,17 +1,17 @@
 const { Schema, model } = require("mongoose");
-const Users = require("./Users");
 
-;
+
+
 
 
 const orderSchema = new Schema({
   status: {
     type: String,
   },
-  usuario: {
+  usuario: [{
     type: Schema.Types.ObjectId,
-    Ref: 'Users'
-  },
+    ref: 'Users'
+  }],
   fecha: {
     type: Date,
   },
@@ -33,4 +33,4 @@ const orderSchema = new Schema({
     type: String,
   },
 });
-module.exports = model("Ordenes", orderSchema);
+module.exports = model("Orders", orderSchema);

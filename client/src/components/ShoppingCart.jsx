@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from '../Styles/shoppingCart.module.css'
 import stylesbutton from '../Styles/button.module.css'
-import { addToCart, clearCart, removeAllFromCart, removeOneFromCart,updateAmount } from "../actions";
+import { addToCart, updateAmount, addToCartPurchaseOrder, clearCart, removeAllFromCart, removeAllFromCartPurchaseOrder, removeOneFromCart, removeOneFromCartPurchaseOrder } from "../actions";
+import axios from "axios";
 
 
 export default function ShoopingCart(){
@@ -12,7 +13,9 @@ export default function ShoopingCart(){
     const dispatch=useDispatch();
     const products=useSelector(state=>state.cart);
     const render=useSelector(state=>state.render);
-    console.log('products :',products)
+    const isLogged = useSelector(state => state.userLogged);
+    const order = useSelector(state => state.purchaseOrder);
+    
     let price=0;
     let productsAmount=0;
 
@@ -30,17 +33,26 @@ export default function ShoopingCart(){
     function handleAdd(e){
         e.preventDefault();
         dispatch(addToCart(e.target.value))
+        dispatch(addToCartPurchaseOrder(e.target.value));
     }
     function handleRemoveOne(e){
         e.preventDefault();
+        dispatch(removeOneFromCartPurchaseOrder(e.target.value));
         dispatch(removeOneFromCart(e.target.value))
     }
     function handleRemoveAll(e){
         e.preventDefault();
+        dispatch(removeAllFromCartPurchaseOrder(e.target.value));
         dispatch(removeAllFromCart(e.target.value))
     }
     function handleClear(){
         dispatch(clearCart())
+    }
+
+    const handleClick = async() => {
+        
+        const json = await axios.post('https://ecommercehenryx.herokuapp.com/mercadopago/orden', order);
+        location.assign(json.data.init_point);
     }
 
     useEffect(()=>{},
@@ -73,7 +85,7 @@ export default function ShoopingCart(){
             <div className={styles.foot}>
                 <button onClick={handleClear} className={styles.buttonX}>Vaciar carrito</button>
                 {
-                    (products.length>0)?<button className={stylesbutton.button}>Realizar compra</button>:null
+                    (products.length>0)?<button className={stylesbutton.button} onClick={handleClick}>Realizar compra</button>:null
                 }
             </div>
         </div>

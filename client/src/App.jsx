@@ -42,7 +42,7 @@ import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
 import AdminUsers from "./components/Admin/AdminUsers"
-import AdminOrders from "./components/AdminOrders";
+import AdminOrders from "./components/Admin/Order/AdminOrders"
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
 import StockTable from "./components/Admin/StockTable";
@@ -235,7 +235,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminData === true }
               >
                 <Add />
               </ProtectedRoute>
@@ -247,7 +247,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminData === true}
               >
                 <AddAuthor />
               </ProtectedRoute>
@@ -259,7 +259,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true&& usuario[0].isAdminData === true}
               >
                 <AddBook />
               </ProtectedRoute>
@@ -271,7 +271,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <DeleteData />
               </ProtectedRoute>
@@ -283,7 +283,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <DeleteAuthor />
               </ProtectedRoute>
@@ -295,7 +295,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <DeleteBook />
               </ProtectedRoute>
@@ -307,7 +307,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <Put />
               </ProtectedRoute>
@@ -319,7 +319,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminData === true}
               >
                 <PutBook />
               </ProtectedRoute>
@@ -331,7 +331,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <PutAuthor />
               </ProtectedRoute>
@@ -343,7 +343,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <PutAuthorID />
               </ProtectedRoute>
@@ -355,7 +355,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
                 <putBookId/>
               </ProtectedRoute>
@@ -367,7 +367,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminStock === true}
               >
                 <Stock />
               </ProtectedRoute>
@@ -379,7 +379,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminStock === true }
               >
                 <StockTable />
               </ProtectedRoute>
@@ -392,7 +392,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminOrders === true}
               >
                 <AdminOrders />
               </ProtectedRoute>
@@ -405,7 +405,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isAdminUsers === true}
               >
                 <AdminUsers />
               </ProtectedRoute>
@@ -418,7 +418,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminStock === true}
               >
                 <AdminUsers2 />
               </ProtectedRoute>
@@ -431,7 +431,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminMarketing === true}
               >
                 <AdminCarousel />
               </ProtectedRoute>

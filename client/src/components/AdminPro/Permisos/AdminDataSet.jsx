@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { setToAdmin, getUsers } from '../../actions'
-import styles from '../../Styles/Button.module.css'
-export default function AdminProSet(props) {
+import { setToAdminData, getUsers } from '../../../actions'
+import styles from '../../../Styles/Button.module.css'
+export default function AdminDataSet(props) {
   const dispatch = useDispatch()
 
   const users = props.users
@@ -14,7 +14,7 @@ export default function AdminProSet(props) {
     users.forEach((usuario) => {
       userIds.push(usuario._id)
     })
-    dispatch(setToAdmin(userIds))
+    dispatch(setToAdminData(userIds))
     setTimeout(function () {
       dispatch(getUsers())
     }, 500)
@@ -25,7 +25,7 @@ export default function AdminProSet(props) {
 
   return (
     <button className={styles.button} onClick={(e) => toogleAdmin(e, users)}>
-      Otorgar/Quitar Permiso de Administrador
+      Data
     </button>
   )
 }

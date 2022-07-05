@@ -57,6 +57,26 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isAdminData: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminStock: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminUsers: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminOrders: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminMarketing: {
+    type: Boolean,
+    default: false,
+  },
   readBooks: [
     {
       type: Schema.Types.ObjectId,
@@ -72,7 +92,7 @@ const userSchema = new Schema({
   buyBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Books',
+      ref: 'Orders',
     },
   ],
   ratingBooks: [

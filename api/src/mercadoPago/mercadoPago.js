@@ -5,7 +5,7 @@ const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
-const Ordenes = require("../model/Ordenes");
+const Orders = require("../model/Order");
 const Users = require("../model/Users");
 const { Enum } = require("./EmunStatus");
 const { randomId } = require("./FuntionID");
@@ -31,7 +31,7 @@ router.post("/orden", async (req, res) => {
 
   const user = await Users.findOne({ email: email[0] });
 
-  const newOrder = new Ordenes({
+  const newOrder = new Orders({
     status: Enum.CREATED,
     fecha: new Date(),
     usuario: user._id,
@@ -43,14 +43,17 @@ router.post("/orden", async (req, res) => {
   });
 
   await newOrder.save();
-
-  try {
+  user.buyBooks = user.buyBooks.concat(newOrder._id)
+    await user.save()
+    
+    
+    try {
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
       quantity: Number(e.quantity),
     }));
-
+    
     let preference = {
       items: itemsMp,
       external_reference: `${idOrder}`,
@@ -62,7 +65,7 @@ router.post("/orden", async (req, res) => {
         ],
         installments: 4,
       },
-
+      
       back_urls: {
         success: "http://localhost:8080/feedback",
         failure: "http://localhost:8080/feedback",
@@ -70,9 +73,10 @@ router.post("/orden", async (req, res) => {
       },
       auto_return: "approved",
     };
-    const saveOrder = await Ordenes.find({ payment_id: idOrder }).populate(
-      "usuario",{name:1, surname:1, email:1}
-    );
+    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate(
+      { path: "usuario"}
+      );
+   
     const respuesta = await mercadopago.preferences.create(preference);
 
     const globalInitPoint = respuesta.body.init_point;
