@@ -1,3 +1,4 @@
+import { gridColumnPositionsSelector } from "@mui/x-data-grid";
 import axios from "axios";
 
 //BOOKS
@@ -357,6 +358,14 @@ export function getUserName(payload) {
   };
 }
 
+export function getUserNameOrders(payload) {
+  console.log("PP:", payload);
+  return {
+    type: "GET_USER_NAME_ORDERS",
+    payload: payload,
+  };
+}
+
 //COMPRAS
 
 export function addToCart(id) {
@@ -649,6 +658,15 @@ export function getAllOrdersByUser(userId) {
     return dispatch({
       type: "GET_ALL_ORDERS_BY_USER",
       payload: result.data,
+    });
+  };
+}
+
+export function setOrderStatus() {
+  return async function (dispatch) {
+    const json = await axios.post("path");
+    return dispatch({
+      type: "SET_ORDER_STATUS",
     });
   };
 }

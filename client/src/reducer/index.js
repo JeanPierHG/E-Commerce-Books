@@ -494,6 +494,7 @@ function rootReducer(state = initialState, action) {
     case "GET_ALL_ORDERS_BY_USER":
       return {
         ...state,
+        buyBooksUser: state.buyBooks.map((order) => {}),
       };
 
     default:

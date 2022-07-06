@@ -1,35 +1,35 @@
-require("dotenv").config();
-const { Router } = require("express");
-const router = Router();
-const { ACCESS_TOKEN } = process.env;
+require('dotenv').config()
+const { Router } = require('express')
+const router = Router()
+const { ACCESS_TOKEN } = process.env
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
-const { Enum } = require("./EmunStatus");
+const { Enum, EnumStatus } = require("./EmunStatus");
 const { randomId } = require("./FuntionID");
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
-});
+})
 
-router.post("/orden", async (req, res) => {
-  const carrito = req.body;
-  const email = carrito.map((e) => e.email);
+router.post('/orden', async (req, res) => {
+  const carrito = req.body
+  const email = carrito.map((e) => e.email)
 
-  const ID = randomId(100);
-  const ID2 = randomId(100);
-  const idOrder = `a${ID}b${ID2}`;
+  const ID = randomId(100)
+  const ID2 = randomId(100)
+  const idOrder = `a${ID}b${ID2}`
 
   const monto = carrito
     .map((e) => {
-      const montoTem = e.unit_price * carrito.length;
-      return montoTem;
+      const montoTem = e.unit_price * carrito.length
+      return montoTem
     })
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b)
 
-  const user = await Users.findOne({ email: email[0] });
+  const user = await Users.findOne({ email: email[0] })
 
   const newOrder = new Orders({
     status: Enum.CREATED,
@@ -38,38 +38,37 @@ router.post("/orden", async (req, res) => {
     produt: carrito.map((e) => e.title),
     total: monto,
     payment_id: idOrder,
-    payment_status: idOrder,
+    payment_status: EnumStatus.PENDING,
     payment_order_id: idOrder,
-  });
+  })
 
-  await newOrder.save();
+  await newOrder.save()
   user.buyBooks = user.buyBooks.concat(newOrder._id)
-    await user.save()
-    
-    
-    try {
+  await user.save()
+
+  try {
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
       quantity: Number(e.quantity),
-    }));
-    
+    }))
+
     let preference = {
       items: itemsMp,
       external_reference: `${idOrder}`,
       payment_methods: {
         excluded_payment_type: [
           {
-            id: "atm",
+            id: 'atm',
           },
         ],
         installments: 4,
       },
       
       back_urls: {
-        success: "http://localhost:8080/feedback",
-        failure: "http://localhost:8080/feedback",
-        pending: "http://localhost:8080/feedback",
+        success: "https://e-commerce-books.vercel.app",
+        failure: "https://e-commerce-books.vercel.app",
+        pending: "https://e-commerce-books.vercel.app",
       },
       auto_return: "approved",
     };
@@ -77,14 +76,16 @@ router.post("/orden", async (req, res) => {
       { path: "usuario"}
       );
    
-    const respuesta = await mercadopago.preferences.create(preference);
+  
 
-    const globalInitPoint = respuesta.body.init_point;
-    return res.json({ init_point: globalInitPoint, order: saveOrder });
+    const respuesta = await mercadopago.preferences.create(preference)
+
+    const globalInitPoint = respuesta.body.init_point
+    return res.json({ init_point: globalInitPoint, order: saveOrder })
   } catch (error) {
-    return console.log("FALLO MERCADO PAGO", error);
+    return console.log('FALLO MERCADO PAGO', error)
   }
-});
+})
 // {"id":1152954796,"nickname":"TETE5687095","password":"qatest2807","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:25:00-04:00","date_last_updated":"2022-07-01T17:25:00-04:00"} VENDEDOR
 
 // {"id":1152955480,"nickname":"TETE6325107","password":"qatest9152","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:26:17-04:00","date_last_updated":"2022-07-01T17:26:17-04:00"}
@@ -101,4 +102,4 @@ router.post("/orden", async (req, res) => {
 
 // }
 
-module.exports = router;
+module.exports = router

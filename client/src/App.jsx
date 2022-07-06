@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors, getUsers , postUser , getCarouselImages} from "./actions";
+import { getBooks, getAuthors, getUsers , postUser , getCarouselImages , getAllOrders} from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -18,45 +18,46 @@ import Landing from "./components/Landing";
 import Author from "./components/Author";
 import BookDetails from "./components/BookDetails";
 import AuthorDetails from "./components/AuthorDetails";
-import Add from "./components/Admin/Add";
-import AddBook from "./components/Admin/AddBook";
-import AddAuthor from "./components/Admin/AddAuthor";
+import Add from "./components/Admin/Data/Agregar/Add";
+import AddBook from "./components/Admin/Data/Agregar/AddBook";
+import AddAuthor from "./components/Admin/Data/Agregar/AddAuthor";
 import BottomBar from "./components/BottomBar";
 import { Admin } from "./components/Admin/Admin";
 import UserPerfil from "./components/UserPerfil";
-import DeleteData from "./components/Admin/DeleteData";
-import Put from "./components/Admin/Put";
-import PutAuthor from "./components/Admin/PutAuthor";
-import PutBook from "./components/Admin/PutBook";
-import PutAuthorID from "./components/Admin/PutAuthorID";
-import putBookId from "./components/Admin/PutBookID"; 
+import DeleteData from "./components/Admin/Data/Borrar/DeleteData";
+import Put from "./components/Admin/Data/Modificar/Put";
+import PutAuthor from "./components/Admin/Data/Modificar/PutAuthor";
+import PutBook from "./components/Admin/Data/Modificar/PutBook";
+import PutAuthorID from "./components/Admin/Data/Modificar/PutAuthorID";
+import PutBookId from "./components/Admin/Data/Modificar/PutBookID"; 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Stock from "./components/Admin/Stock";
+import Stock from "./components/Admin/Data/Stock/Stock";
 import LogInButton from "./components/LogIn";
 import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
-import DeleteAuthor from "./components/Admin/DeleteAuthor";
-import DeleteBook from "./components/Admin/DeleteBook";
+import DeleteAuthor from "./components/Admin/Data/Borrar/DeleteAuthor";
+import DeleteBook from "./components/Admin/Data/Borrar/DeleteBook";
 import AdminPro from "./components/AdminPro/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
-import AdminUsers from "./components/Admin/AdminUsers"
-import AdminOrders from "./components/Admin/Order/AdminOrders"
-import AdminCarousel from "./components/AdminCarousel";
+import AdminUsers from "./components/Admin/Usuarios/AdminUsers"
+import AdminOrders from "./components/Admin/Orders/AdminOrders"
+import AdminCarousel from "./components/Admin/Marketing/AdminCarousel";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
-import StockTable from "./components/Admin/StockTable";
-import AdminUsers2 from "./components/Admin/AdminUsers2";
+import StockTable from "./components/Admin/Data/Stock/StockTable";
+import AdminUsers2 from "./components/Admin/Usuarios/AdminUsers2";
 import CreateAdmin from "./components/AdminPro/CreateAdmin";
 import UserFav from "./components/UserFav";
 import { AdminProProfile } from "./components/AdminPro/AdminProProfile";
-import AdminUserProfile from "./components/Admin/AdminUserProfile";
+import AdminUserProfile from "./components/Admin/Usuarios/AdminUserProfile";
 import ProtectedRouteBan from "./components/ProtectedRouteBan";
-import Banned from "./components/Admin/Banned";
+import Banned from "./components/Admin/Usuarios/Banned";
 import UserNavBar from "./components/UserNavBar";
 import UserPlanLectura from "./components/UserPlanLectura";
-import AdminUserNewsLetter from "./components/Admin/AdminUserNewsLetter";
+import AdminUserNewsLetter from "./components/Admin/Usuarios/Manejo de estados/AdminUserNewsLetter";
 import AdminProPerfilUsuarios from "./components/AdminPro/AdminProPerfilesUsuarios";
+import AdminOrderDetails from "./components/Admin/Orders/AdminOrderDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -87,10 +88,14 @@ function App() {
     useEffect(() => {
       dispatch(getCarouselImages())
     }, [dispatch])
+
+    useEffect(() => {
+      dispatch(getAllOrders());
+    }, [dispatch]);
   
 
   const usuario = useSelector((state) => state.userLogged);
-  console.log('appp:',usuario)
+  
 
   return (
     <BrowserRouter>
@@ -357,7 +362,7 @@ function App() {
                 redirectPath="/home"
                 isAllowed={usuario.length === 1 && usuario[0].isAdmin === true  && usuario[0].isAdminData === true}
               >
-                <putBookId/>
+                <PutBookId/>
               </ProtectedRoute>
             }
           />
@@ -437,6 +442,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/adminorderdetails/:id"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true && usuario[0].isAdminOrders === true}
+              >
+                <AdminOrderDetails />
+              </ProtectedRoute>
+            }
+          />
+
+
+
+
 
           {/* <Route
             path="/user/suscripcion"
