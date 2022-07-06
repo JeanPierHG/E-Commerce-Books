@@ -13,7 +13,8 @@ router.get("/", async function (req, res) {
         path: "genres",
         select: "genre",
       })
-      .populate({ path: "authors", select: "name", select: { _id: 0 } });
+      .populate({ path: "authors", select: "name", select: { _id: 0 } })
+      .populate('comments')
     return res.json(books);
   } catch (error) {
     console.log("FALLO GET BOOKS", error);

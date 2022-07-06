@@ -45,8 +45,8 @@ const userSchema = new Schema({
   },
   comments: [
     {
-      type: Schema.Types.String,
-      ref: 'Books',
+      type: Schema.Types.ObjectId,
+      ref: 'Comments',
     },
   ],
   isSuperAdmin: {
