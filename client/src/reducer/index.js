@@ -14,8 +14,10 @@ const initialState = {
   usersCopy: [],
   userLogged: [],
   cart: [],
+  cartAmount:0,
   render: [],
   carousel: [],
+  purchaseOrder: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -307,6 +309,13 @@ function rootReducer(state = initialState, action) {
         users: nameU,
       };
 
+    case 'PURCHASE_ORDER':
+
+      return {
+        ...state,
+        purchaseOrder: [...state.purchaseOrder, action.payload]
+      }
+
     case "ADD_TO_CART":
       let newCart = state.cart;
       let repeats = false;
@@ -318,18 +327,46 @@ function rootReducer(state = initialState, action) {
         }
       });
       if (repeats) {
-        console.log("Repetido");
+        //console.log("Repetido");
         newCart[index].amount++;
       } else {
         newCart.push(action.payload);
         newCart[newCart.length - 1].amount = 1;
-        console.log("No repetido");
+        //console.log("No repetido");
       }
       return {
         ...state,
         cart: newCart,
         render: Math.random(),
       };
+
+    case 'ADD_TO_CART_PURCHASE_ORDER':
+      let newCart4 = state.purchaseOrder;
+      let newCart5 = state.cart;
+      let rep = false;
+      let index4 = '';
+      let titleId = '';
+      
+      newCart5.map((e, i) => {
+        if (e._id === action.payload) {
+          titleId = e.title;
+        }
+      })
+      
+      newCart4.map((e, i) => {
+        if (e.title === titleId) {
+          rep = true;
+          index4 = i;
+        }
+      })
+      
+      if (rep) {
+        newCart4[index4].quantity++;
+      } 
+      return {
+        ...state, 
+        purchaseOrder: newCart4,
+      }
 
     case "REMOVE_ONE_FROM_CART":
       let newCart2 = state.cart;
@@ -350,6 +387,35 @@ function rootReducer(state = initialState, action) {
         render: Math.random(),
       };
 
+    case 'REMOVE_ONE_FROM_CART_PURCHASE_ORDER':
+      let newCart6 = state.purchaseOrder;
+      let newCart7 = state.cart;
+      let index5 = '';
+      let titleId1 = '';
+
+      newCart7.map((e, i) => {
+        if (e._id === action.payload) {
+          titleId1 = e.title;
+        }
+      })
+
+      newCart6.map((e, i) => {
+        if (e.title === titleId1) {
+          index5 = i;
+        }
+      })
+
+      if (newCart6[index5].quantity === 1) {
+        newCart6.splice(index5, 1);
+      } else {
+        newCart6[index5].quantity--;
+      }
+
+      return {
+        ...state,
+        purchaseOrder: newCart6,
+      }
+
     case "REMOVE_ALL_FROM_CART":
       let newCart3 = state.cart;
       console.log("id :", action.payload);
@@ -358,11 +424,35 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: newCart3,
       };
+    case 'UPDATE_AMOUNT':
+      return{
+        ...state,
+        cartAmount:action.payload
+      }
+
+    case 'REMOVE_ALL_FROM_CART_PURCHASE_ORDER':
+      let newCart8 = state.purchaseOrder;
+      let newCart9 = state.cart;
+      let titleId2 = '';
+
+      newCart9.map((e, i) => {
+        if (e._id === action.payload) {
+          titleId2 = e.title;
+        }
+      })
+
+      const newCart10 = newCart8.filter(e => e.title !== titleId2);
+
+      return {
+        ...state,
+        purchaseOrder: newCart10,
+      }
 
     case "CLEAR_CART":
       return {
         ...state,
         cart: [],
+        purchaseOrder: [],
       };
 
     case "ADD_FAV":

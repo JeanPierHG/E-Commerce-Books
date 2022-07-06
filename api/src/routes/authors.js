@@ -40,11 +40,7 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params
   try {
     if (id.length !== 24) throw new Error('The id have 24 characters')
-    const author = await Author.findById(id).populate('books', {
-      title: 1,
-      cover: 1,
-      _id: 1,
-    })
+    const author = await Author.findById(id).populate('books')
     if (!author) throw new Error('No author found')
     res.status(200).json(author)
   } catch (err) {

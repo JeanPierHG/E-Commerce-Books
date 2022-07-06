@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
+import { BsCart } from 'react-icons/bs'
 
 import {
   getBookDetails,
@@ -11,6 +12,8 @@ import {
   addToCart,
   addFav,
   getUsers,
+  updateAmount,
+  purchaseOrder,
 } from '../actions'
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
@@ -22,7 +25,9 @@ export default function BookDetails() {
   const id = useParams().id
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isLogged = useSelector((state) => state.userLogged)
+  const productsAmount=useSelector((state)=>state.cartAmount)
+  const isLogged = useSelector(state => state.userLogged)
+  const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
 
   useEffect(() => {
@@ -38,8 +43,21 @@ export default function BookDetails() {
   }
   function handleAddToCart(e) {
     e.preventDefault()
+    if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(id))
+    dispatch(updateAmount(productsAmount+1))
     alert('Libro agregado al carrito!')
+    setTimeout(function(){
+      
+      dispatch(purchaseOrder({
+        email: isLogged[0].email, 
+        name: isLogged[0].name,
+        title: products[products.length-1].title,
+        unit_price: products[products.length-1].price, 
+        quantity: products[products.length-1].amount,
+      }))
+       
+    }, 200)
   }
 
   useEffect(() => {
@@ -62,7 +80,10 @@ export default function BookDetails() {
   return (
     <div className={styles.container}>
       <Link to='/cart'>
-        <button className={styles.cart}>Ir al Carrito</button>
+        <div className={styles.containerCart}>
+          <BsCart className={styles.cart} />
+          <h4 className={styles.productsAmount}>{productsAmount}</h4>
+        </div>
       </Link>
       <img src={book.cover} alt='Not Found ):' className={styles.img} />
 

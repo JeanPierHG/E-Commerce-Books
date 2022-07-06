@@ -45,8 +45,8 @@ const userSchema = new Schema({
   },
   comments: [
     {
-      type: Schema.Types.String,
-      ref: 'Books',
+      type: Schema.Types.ObjectId,
+      ref: 'Comments',
     },
   ],
   isSuperAdmin: {
@@ -54,6 +54,26 @@ const userSchema = new Schema({
     default: false,
   },
   isPremiun: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminData: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminStock: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminUsers: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminOrders: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminMarketing: {
     type: Boolean,
     default: false,
   },
@@ -72,7 +92,7 @@ const userSchema = new Schema({
   buyBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Books',
+      ref: 'Orders',
     },
   ],
   ratingBooks: [

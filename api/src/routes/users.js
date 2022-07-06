@@ -292,7 +292,7 @@ router.post('/toggleSuperAdmin', async (req, res) => {
         await user.save()
         return res.send('The user now is not admin')
       } else {
-        user.isPremiun = true
+        user.isS = true
         await user.save()
         return res.send('The user is now admin')
       }
@@ -302,4 +302,190 @@ router.post('/toggleSuperAdmin', async (req, res) => {
   }
 })
 
+router.post('/toggleAdminData', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminData) {
+          user.isAdminData = false
+          await user.save()
+        } else {
+          user.isAdminData = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminData) {
+        user.isAdminData = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminData = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleAdminStock', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminStock) {
+          user.isAdminStock = false
+          await user.save()
+        } else {
+          user.isAdminStock = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminStock) {
+        user.isAdminStock = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminStock = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+router.post('/toggleAdminUsers', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminUsers) {
+          user.isAdminUsers = false
+          await user.save()
+        } else {
+          user.isAdminUsers = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminUsers) {
+        user.isAdminUsers = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminUsers = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+router.post('/toggleAdminOrders', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminOrders) {
+          user.isAdminOrders = false
+          await user.save()
+        } else {
+          user.isAdminOrders = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminOrders) {
+        user.isAdminOrders = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminOrders = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+router.post('/toggleAdminMarketing', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminMarketing) {
+          user.isAdminMarketing = false
+          await user.save()
+        } else {
+          user.isAdminMarketing = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminMarketing) {
+        user.isAdminMarketing = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminMarketing = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
 module.exports = router

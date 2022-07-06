@@ -24,6 +24,8 @@ import { formControlClasses } from '@mui/material'
 export default function Home() {
   const dispatch = useDispatch()
 
+  const productsAmount=useSelector(state=>state.cartAmount)
+
   const { user, isAuthenticated } = useAuth0()
 
   const allBooks = useSelector((state) => state.books)
@@ -94,6 +96,7 @@ export default function Home() {
       <Link to='/cart'>
         <div className={styles.containerCart}>
           <BsCart className={styles.cart} />
+          <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
       <div className={styles.color}>
