@@ -2,10 +2,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { addToCart, clearPageAuthorDetails, getAuthorDetails } from '../actions'
+import { addToCart, clearPageAuthorDetails, getAuthorDetails,updateAmount } from '../actions'
 import { Link } from 'react-router-dom'
 import style from '../Styles/authorDetails.module.css'
 import styledButton from '../Styles/Button.module.css'
+import { BsCart } from 'react-icons/bs'
 import { animateScroll as scroll } from 'react-scroll'
 import { useState } from 'react'
 import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
@@ -15,6 +16,7 @@ const AuthorDetails = () => {
   const dispatch = useDispatch()
   const authorDetails = useSelector((state) => state.authorDetails)
   const books = useSelector((state) => state.books)
+  const productsAmount=useSelector((state)=>state.cartAmount)
   const authorBooks = authorDetails.books
 
   const { id } = useParams()
@@ -33,13 +35,17 @@ const AuthorDetails = () => {
   function handleClick(e) {
     e.preventDefault
     dispatch(addToCart(e.target.value))
+    dispatch(updateAmount(productsAmount+1))
     alert('Libro añadido al carrito!')
   }
 
   return (
     <div className={style.container}>
       <Link to='/cart'>
-        <button className={style.cart}>Ir al Carrito</button>
+        <div className={style.containerCart}>
+          <BsCart className={style.cart} />
+          <h4 className={style.productsAmount}>{productsAmount}</h4>
+        </div>
       </Link>
       <div className={style.btnUbi}>
         <Link to='/author'>

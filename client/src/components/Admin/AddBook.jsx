@@ -62,10 +62,6 @@ export default function AddBook() {
       errors.title = 'Ingresar titulo (!)'
     }
 
-    if (!post.title.match(/^[a-zA-Z0-9 _]*$/g)) {
-      errors.title = 'El titulo no puede contener simbolos'
-    }
-
     if (post.title.length > 50) {
       errors.title = 'El titulo es demasiado largo'
     }
@@ -102,9 +98,6 @@ export default function AddBook() {
       errors.editorial = 'Nombre de editorial demasiado largo'
     }
 
-    if (!post.editorial.match(/^[a-zA-Z]*$/g)) {
-      errors.editorial = 'Solo puede contener letras'
-    }
 
     if (!post.cover) {
       errors.cover = 'Ingresar URL de la portada'

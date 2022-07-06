@@ -11,6 +11,7 @@ export default function Landing() {
   const dispatch = useDispatch()
   const { user } = useAuth0()
   const usuario = useSelector ( state => state.userLogged)
+  console.log(usuario)
 
  
 
@@ -24,8 +25,9 @@ export default function Landing() {
           Dicen que la felicidad no se puede comprar, pero siempre puedes
           encontrarla en un libro
         </h3>
-        {user
-        ?<h1>Bienvenido: {user.name}!!!</h1>
+        {usuario.length===1
+        ?(usuario[0].name?<h1>Bienvenido {usuario[0].name}!!!</h1>
+        :<h1>Bienvenido {usuario[0].nickname}!!!</h1>)
         :''}
         <Link to="/home">
           <button className={styles.btn}>¡Vamos!</button>

@@ -365,7 +365,7 @@ export function addToCart(id) {
     const book = await axios.get(
       "https://ecommercehenryx.herokuapp.com/books/" + id
     );
-    console.log("book en action :", book);
+    //console.log("book en action :", book);
     return dispatch({
       type: "ADD_TO_CART",
       payload: book.data,
@@ -388,11 +388,55 @@ export function removeAllFromCart(id) {
     });
   };
 }
+export function updateAmount(amount) {
+  return (dispatch) => {
+    return dispatch({
+      type: "UPDATE_AMOUNT",
+      payload: amount,
+    });
+  };
+}
 export function clearCart() {
   return (dispatch) => {
     return dispatch({
       type: "CLEAR_CART",
       payload: "nada",
+    });
+  };
+}
+
+export function purchaseOrder(payload) {
+  return (dispatch) => {
+    return dispatch({
+      type: "PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function addToCartPurchaseOrder(payload) {
+  return (dispatch) => {
+    return dispatch({
+      type: "ADD_TO_CART_PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function removeOneFromCartPurchaseOrder(payload) {
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ONE_FROM_CART_PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function removeAllFromCartPurchaseOrder(payload) {
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ALL_FROM_CART_PURCHASE_ORDER",
+      payload: payload,
     });
   };
 }
@@ -419,6 +463,66 @@ export function setToSuperAdmin(payload) {
     );
     return dispatch({
       type: "SET_TO_ADMIN",
+    });
+  };
+}
+
+export function setToAdminData(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminData",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_DATA",
+    });
+  };
+}
+
+export function setToAdminStock(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminStock",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_STOCK",
+    });
+  };
+}
+
+export function setToAdminUsers(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminUsers",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_USERS",
+    });
+  };
+}
+
+export function setToAdminOrders(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminOrders",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_ORDERS",
+    });
+  };
+}
+
+export function setToAdminMarketing(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminMarketing",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_MARKETING",
     });
   };
 }
@@ -468,6 +572,7 @@ export function addFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`
     );
+    console.log("SSSSdd:", json.data);
 
     return dispatch({
       type: "ADD_FAV",
@@ -523,3 +628,27 @@ export function getCarouselImages() {
 //   }
 
 // }
+
+//ORDERS
+
+export function getAllOrders() {
+  return async function (dispatch) {
+    const json = await axios.post("path");
+    return dispatch({
+      type: "GET_ALL_ORDERS",
+      payload: json.data,
+    });
+  };
+}
+
+export function getAllOrdersByUser(userId) {
+  return async function (dispatch) {
+    const result = await axios.get(
+      `https://ecommercehenryx.herokuapp.com/orders${userId}`
+    );
+    return dispatch({
+      type: "GET_ALL_ORDERS_BY_USER",
+      payload: result.data,
+    });
+  };
+}

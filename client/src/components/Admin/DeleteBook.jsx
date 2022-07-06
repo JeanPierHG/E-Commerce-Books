@@ -34,9 +34,6 @@ export default function DeleteBook() {
     setTimeout(function () {
       dispatch(getBooksAdmin()), 500
     })
-    setTimeout(function () {
-      dispatch(getBooks()), 1000
-    })
     //navigate('/admin')
   }
 
@@ -44,9 +41,6 @@ export default function DeleteBook() {
     dispatch(showBook(id))
     setTimeout(function () {
       dispatch(getBooksAdmin()), 500
-    })
-    setTimeout(function () {
-      dispatch(getBooks()), 1000
     })
     //alert('Modificado')
     // navigate('/admin')
@@ -56,9 +50,6 @@ export default function DeleteBook() {
     dispatch(hideBook(id))
     setTimeout(function () {
       dispatch(getBooksAdmin()), 500
-    })
-    setTimeout(function () {
-      dispatch(getBooks()), 1000
     })
 
     // alert('Modificado')

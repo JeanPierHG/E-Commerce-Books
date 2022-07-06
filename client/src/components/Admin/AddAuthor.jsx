@@ -56,9 +56,7 @@ export default function AddAuthor() {
     if (!post.country) {
       errors.country = 'Ingresar un pais'
     }
-    if (!post.country.match(/^[a-zA-Z]*$/g)) {
-      errors.country = 'Solo puede contener letras'
-    }
+    
     if (!post.picture) {
       errors.picture = 'Ingresar url'
     }

@@ -29,21 +29,23 @@ export default function BottomBar() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    const usuario = allUsers.filter((u) => u.email === user.email)
-    if(isLogged.length === 0) {
+    const usuario = allUsers.filter((u) => u._id === isLogged[0]._id);
+    /* if(isLogged.length === 0) {
       setInput('');
-      return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
-    } else if (usuario[0].isSubscribeNewsLetter === true){
+      return alert('Para suscribirte a nuestro newsletter necesitas estar logeado'); 
+    } */
+    if (usuario[0].isSubscribeNewsLetter === true){
       setInput('');
       return alert('Ya estas subscipto!!');
-    } else { 
-      const id = [isLogged[0]._id];
-      dispatch(setUserNews(id));
-      alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
-      setInput('');
-      navigate('/user');
-      dispatch(getUsers());
-    }
+    } 
+    
+    const id = [isLogged[0]._id];
+    dispatch(setUserNews(id));
+    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
+    setInput('');
+    navigate('/user');
+    dispatch(getUsers());
+    
   }
 
   return (
@@ -103,12 +105,23 @@ export default function BottomBar() {
               value={input}
               onChange={(e) => handleChange(e)}
             />
-            <button
+            {
+              isLogged.length === 0 ? 
+              <p>Para suscribirte necesitas estar logeado</p> :
+              <button
               className={styles.btn}
               type='submit'
               onClick={(e) => handleSubmit(e)}>
               Suscribirse
-            </button>
+            </button> 
+            
+            }
+            {/* <button
+              className={styles.btn}
+              type='submit'
+              onClick={(e) => handleSubmit(e)}>
+              Suscribirse
+            </button> */}
           </div>
         </div>
         <div>

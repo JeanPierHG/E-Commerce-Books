@@ -26,6 +26,7 @@ export default function Home() {
   const { user, isAuthenticated } = useAuth0();
   const allBooks = useSelector((state) => state.books);
   const usuario = useSelector((state) => state.userLogged);
+  const productsAmount = useSelector((state) => state.cartAmount);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(8);
@@ -84,6 +85,7 @@ export default function Home() {
       <Link to="/cart">
         <div className={styles.containerCart}>
           <BsCart className={styles.cart} />
+          <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
       <div className={styles.color}>

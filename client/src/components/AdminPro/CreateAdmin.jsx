@@ -1,12 +1,18 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import AdminProSet from './AdminProSet'
+import AdminProSet from './Permisos/AdminProSet'
 import { getUsers, postUser, setToAdmin } from '../../actions'
 import { Link , NavLink} from 'react-router-dom'
-import SuperAdminProSet from './SuperAdminProSet'
+import SuperAdminProSet from './Permisos/SuperAdminProSet'
 import AdminSearchBarUser from '../Admin/AdminSearchBarUser'
 import AdminRefreshUsers from '../Admin/AdminRefreshUser'
+import AdminDataSet from './Permisos/AdminDataSet'
+import AdminUsersSet from './Permisos/AdminUsersSet'
+import AdminStockSet from './Permisos/AdminStockSet'
+import AdminOrdersSet from './Permisos/AdminOrdersSet'
+import AdminMarketingSet from './Permisos/AdminMarketingSet'
+
 import styles from '../../Styles/createAdmin.module.css'
 
 // {id: userId, changes:{isAdmin:true}}
@@ -58,17 +64,51 @@ export default function CreateAdmin(props) {
 
      
         <div id='tableleft'>
-          <div className={styles.containerButtonsActions}>
+          <div className={styles.containerButtonsActions}> 
+
+          <h2 className={styles.h2}>Otorgar/Quitar Permisos Para Administrar:</h2>
+          
+           <SuperAdminProSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
             <AdminProSet
               users={seleccionados}
               changed={changed}
               setChanged={setChanged}
             />
-            <SuperAdminProSet
+
+            <AdminDataSet
               users={seleccionados}
               changed={changed}
               setChanged={setChanged}
             />
+
+            <AdminStockSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+
+            <AdminUsersSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+
+            <AdminOrdersSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+
+            <AdminMarketingSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+          
           </div>
         </div>
         <div className={styles.containerUsersData}>
@@ -85,9 +125,14 @@ export default function CreateAdmin(props) {
                 <tr>
                   <th>Email</th>
                   <th>Usuario</th>
-
-                  <th>Administrador</th>
                   <th>Pro</th>
+                  <th>Administrador</th>
+                  <th>Data</th>
+                  <th>Stock</th>
+                  <th>Users</th>
+                  <th>Orders</th>
+                  <th>Marketing</th>
+                 
                   <th>check</th>
                 </tr>
               </thead>
@@ -96,13 +141,19 @@ export default function CreateAdmin(props) {
                 {usuarios.map((usuario) => (
                   <tr key={usuario._id}>
                     <td>
-                      <Link to={`/adminuserprofile/${usuario._id}`}>
+                      <Link to={`/adminproperfilusuarios/${usuario._id}`}>
                         {usuario.email}
                       </Link>
                     </td>
                     <td>{usuario.name}</td>
-                    <td>{usuario.isAdmin ? 'Si' : 'No'}</td>
                     <td>{usuario.isSuperAdmin ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdmin ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdminData ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdminStock ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdminUsers ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdminOrders ? 'Si' : 'No'}</td>
+                    <td>{usuario.isAdminMarketing ? 'Si' : 'No'}</td>
+                    
                     <td class='active'>
                       {usuario.isSuperAdmin != 'isSuperAdmin' ? (
                         <input

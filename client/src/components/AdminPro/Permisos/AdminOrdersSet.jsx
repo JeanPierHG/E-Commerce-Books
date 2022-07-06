@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { setToSuperAdmin, getUsers } from '../../actions'
-import styles from '../../Styles/Button.module.css'
-export default function SuperAdminProSet(props) {
+import { setToAdminOrders, getUsers } from '../../../actions'
+import styles from '../../../Styles/Button.module.css'
+export default function AdminOrdersSet(props) {
   const dispatch = useDispatch()
 
   const users = props.users
@@ -14,7 +14,7 @@ export default function SuperAdminProSet(props) {
     users.forEach((usuario) => {
       userIds.push(usuario._id)
     })
-    dispatch(setToSuperAdmin(userIds))
+    dispatch(setToAdminOrders(userIds))
     setTimeout(function () {
       dispatch(getUsers())
     }, 500)
@@ -25,7 +25,7 @@ export default function SuperAdminProSet(props) {
 
   return (
     <button className={styles.button} onClick={(e) => toogleAdmin(e, users)}>
-      Otorgar/Quitar Permiso de Administrador PRO
+      Ordenes
     </button>
   )
 }

@@ -53,7 +53,7 @@ const NavBar = () => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.logo}>PG-11 Books</h3>
+      <h3 className={styles.logo}>Grow Up-Libros</h3>
 
       <Link to='/home' className={styles.Link}>
         <p className={styles.navItem} onClick={handleClick}>
