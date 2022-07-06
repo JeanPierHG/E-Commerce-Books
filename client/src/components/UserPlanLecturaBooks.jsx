@@ -1,12 +1,17 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addToCart } from '../actions'
+import { addToCart, purchaseOrder, updateAmount } from '../actions'
 import style from '../Styles/UserPlanLecturaBooks.module.css'
 import Fav from './Fav'
 
 const UserPlanLecturaBooks = ({ size, genre, budget }) => {
+
+  const dispatch = useDispatch()
   const allBooks = useSelector((state) => state.books)
+  const users = useSelector((state) => state.userLogged)
+  const products = useSelector(state => state.cart)
+  const productsAmount=useSelector((state)=>state.cartAmount)
   const id = allBooks[0]._id;
 
   const roundOne = allBooks
@@ -67,8 +72,21 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
 
     const handleAddToCart = (e) => {
       e.preventDefault()
-      dispatch(addToCart(id))
+      if (users.length === 0) return loginWithRedirect()
+      dispatch(addToCart(e.target.value))
+      dispatch(updateAmount(productsAmount+1))
       alert('Libro agregado al carrito!')
+      setTimeout(function(){
+      
+        dispatch(purchaseOrder({
+          email: users[0].email, 
+          name: users[0].name,
+          title: products[products.length-1].title,
+          unit_price: products[products.length-1].price, 
+          quantity: products[products.length-1].amount,
+        }))
+         
+      }, 200)
     }
 
   return (
@@ -81,7 +99,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -97,7 +115,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -113,7 +131,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -129,7 +147,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -145,7 +163,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -161,7 +179,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -177,7 +195,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>
@@ -193,7 +211,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button onClick={(e) => handleAddToCart(e)}>
+            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
               Añadir al carrito
             </button>
             <span>

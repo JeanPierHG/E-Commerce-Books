@@ -166,6 +166,7 @@ export default function Home() {
                             price={book.price}
                             rating={book.rating}
                             id={book._id}
+                            stock={book.stock}
                           />
                         </div>
                       </div>

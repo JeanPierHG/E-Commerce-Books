@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { addToCart, clearPageAuthorDetails, getAuthorDetails,updateAmount } from '../actions'
+import { addToCart, clearPageAuthorDetails, getAuthorDetails,purchaseOrder,updateAmount } from '../actions'
 import { Link } from 'react-router-dom'
 import style from '../Styles/authorDetails.module.css'
 import styledButton from '../Styles/Button.module.css'
@@ -17,6 +17,8 @@ const AuthorDetails = () => {
   const authorDetails = useSelector((state) => state.authorDetails)
   const books = useSelector((state) => state.books)
   const productsAmount=useSelector((state)=>state.cartAmount)
+  const isLogged = useSelector(state => state.userLogged)
+  const products = useSelector(state => state.cart)
   const authorBooks = authorDetails.books
 
   const { id } = useParams()
@@ -33,10 +35,23 @@ const AuthorDetails = () => {
   }, [dispatch])
 
   function handleClick(e) {
-    e.preventDefault
+    e.preventDefault();
+    if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(e.target.value))
     dispatch(updateAmount(productsAmount+1))
     alert('Libro añadido al carrito!')
+    setTimeout(function(){
+      
+      dispatch(purchaseOrder({
+        email: isLogged[0].email, 
+        name: isLogged[0].name,
+        title: products[products.length-1].title,
+        unit_price: products[products.length-1].price, 
+        quantity: products[products.length-1].amount,
+      }))
+       
+    }, 200)
+    
   }
 
   return (

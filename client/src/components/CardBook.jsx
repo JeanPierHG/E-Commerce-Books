@@ -3,13 +3,19 @@ import styles from "../Styles/CardBook.module.css";
 import { Link } from "react-router-dom";
 import Fav from "./Fav";
 import { useDispatch, useSelector } from "react-redux";
-import { putRating } from "../actions";
+import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
 import { Rating } from "@mui/material";
 import { useEffect } from "react";
+import { useAuth0 } from '@auth0/auth0-react'
 
-export default function CardBook({ title, cover, price, rating, id }) {
+export default function CardBook({ title, cover, price, rating, id, stock }) {
   const dispatch = useDispatch();
   const { userLogged } = useSelector((state) => state);
+  const productsAmount=useSelector((state)=>state.cartAmount)
+  const products = useSelector(state => state.cart);
+  
+  const { loginWithRedirect } = useAuth0()
+
   //const [ifRating, setIfRating] = useState();
   const ifRating = changeRating(id);
   const isBuy = changeBuy(id);
@@ -42,6 +48,25 @@ export default function CardBook({ title, cover, price, rating, id }) {
   function handleRating(event, value) {
     dispatch(putRating(id, value, userLogged[0]._id));
     // setIfRating(true);
+  }
+
+  function handleAddToCart(e) {
+    e.preventDefault()
+    if (userLogged.length === 0) return loginWithRedirect()
+    dispatch(addToCart(id))
+    dispatch(updateAmount(productsAmount+1))
+    alert('Libro agregado al carrito!')
+    setTimeout(function(){
+      
+      dispatch(purchaseOrder({
+        email: userLogged[0].email, 
+        name: userLogged[0].name,
+        title: products[products.length-1].title,
+        unit_price: products[products.length-1].price, 
+        quantity: products[products.length-1].amount,
+      }))
+       
+    }, 200)
   }
 
   return (
@@ -91,6 +116,14 @@ export default function CardBook({ title, cover, price, rating, id }) {
               <Fav book={id} />
             </span>
             <p className={styles.price}>${price}</p>
+          </div>
+          <div>
+            {
+              stock > 1 ?
+              <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
           </div>
         </div>
       </div>
