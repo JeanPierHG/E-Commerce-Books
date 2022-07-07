@@ -6,15 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
 import { Rating } from "@mui/material";
 import { useEffect } from "react";
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
   const dispatch = useDispatch();
   const { userLogged } = useSelector((state) => state);
-  const productsAmount=useSelector((state)=>state.cartAmount)
-  const products = useSelector(state => state.cart);
-  
-  const { loginWithRedirect } = useAuth0()
+  const productsAmount = useSelector((state) => state.cartAmount);
+  const products = useSelector((state) => state.cart);
+  const { ordersUser } = useSelector((state) => state);
+
+  const { loginWithRedirect } = useAuth0();
 
   //const [ifRating, setIfRating] = useState();
   const ifRating = changeRating(id);
@@ -51,22 +52,22 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   }
 
   function handleAddToCart(e) {
-    e.preventDefault()
-    if (userLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(id))
-    dispatch(updateAmount(productsAmount+1))
-    alert('Libro agregado al carrito!')
-    setTimeout(function(){
-      
-      dispatch(purchaseOrder({
-        email: userLogged[0].email, 
-        name: userLogged[0].name,
-        title: products[products.length-1].title,
-        unit_price: products[products.length-1].price, 
-        quantity: products[products.length-1].amount,
-      }))
-       
-    }, 200)
+    e.preventDefault();
+    if (userLogged.length === 0) return loginWithRedirect();
+    dispatch(addToCart(id));
+    dispatch(updateAmount(productsAmount + 1));
+    alert("Libro agregado al carrito!");
+    setTimeout(function () {
+      dispatch(
+        purchaseOrder({
+          email: userLogged[0].email,
+          name: userLogged[0].name,
+          title: products[products.length - 1].title,
+          unit_price: products[products.length - 1].price,
+          quantity: products[products.length - 1].amount,
+        })
+      );
+    }, 200);
   }
 
   return (
@@ -118,12 +119,16 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             <p className={styles.price}>${price}</p>
           </div>
           <div>
-            {
-              stock > 1 ?
-              <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
+            {stock > 1 ? (
+              <button
+                className={styles.button}
+                onClick={(e) => handleAddToCart(e)}
+              >
                 Añadir al carrito
-              </button> : ''
-            }
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

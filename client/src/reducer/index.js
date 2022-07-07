@@ -18,7 +18,9 @@ const initialState = {
   render: [],
   carousel: [],
   purchaseOrder: [],
-  buyBooksUser: [],
+  orders: [],
+  ordersCopy: [],
+  ordersUser: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -310,6 +312,19 @@ function rootReducer(state = initialState, action) {
         users: nameU,
       };
 
+    case "GET_USER_NAME_ORDERS":
+      const nameUOrderCopy = state.ordersCopy;
+      const nameUOrder = nameUOrderCopy.filter((order) =>
+        order.usuario[0].email
+          .toLowerCase()
+          .includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: nameUOrder,
+      };
+
     case "PURCHASE_ORDER":
       return {
         ...state,
@@ -491,10 +506,17 @@ function rootReducer(state = initialState, action) {
         carousel: action.payload,
       };
 
+    case "GET_ALL_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
+        ordersCopy: action.payload,
+      };
+
     case "GET_ALL_ORDERS_BY_USER":
       return {
         ...state,
-        buyBooksUser: state.buyBooks.map((order) => {}),
+        ordersUser: action.payload,
       };
 
     default:
