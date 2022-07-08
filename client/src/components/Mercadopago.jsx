@@ -2,7 +2,7 @@ import React from 'react'
 
 function Mercadopago() {
   const handleClick = async () => {
-    fetch('http://ecommercehenryx.herokuapp.com/mercadopago/success')
+    fetch('https://ecommercehenryx.herokuapp.com/mercadopago/success')
       .then((res) => res.json())
       .then((data) => console.log(data))
   }
