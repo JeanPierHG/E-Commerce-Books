@@ -11,7 +11,7 @@ function Mercadopago() {
     return data
   }
 
-  console.log(data)
+  console.log(info())
 
   console.log('USE PARAMS', data)
   return <div>Hola</div>
