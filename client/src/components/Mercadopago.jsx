@@ -15,10 +15,10 @@ function Mercadopago() {
     <div>
       <button onClick={handleClick}>Presionar</button>
       <br />
-      <p>{data.fecha}</p>
-      <p>{data.isHidden}</p>
-      <p>{data.status}</p>
-      <p>{data.produt[0]}</p>
+      <p>{data?.fecha}</p>
+      <p>{data?.isHidden}</p>
+      <p>{data?.status}</p>
+      <p>{data?.produt[0]}</p>
     </div>
   )
 }
