@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 function Mercadopago() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState(null)
 
   const handleClick = () => {
     fetch('https://ecommercehenryx.herokuapp.com/mercadopago/success').then(
@@ -15,10 +15,14 @@ function Mercadopago() {
     <div>
       <button onClick={handleClick}>Presionar</button>
       <br />
-      <p>{data?.fecha}</p>
-      <p>{data?.isHidden}</p>
-      <p>{data?.status}</p>
-      <p>{data?.produt[0]}</p>
+      {data && (
+        <div>
+          <p>{data.fecha}</p>
+          <p>{data.isHidden}</p>
+          <p>{data.status}</p>
+          <p>{data.produt[0]}</p>
+        </div>
+      )}
     </div>
   )
 }
