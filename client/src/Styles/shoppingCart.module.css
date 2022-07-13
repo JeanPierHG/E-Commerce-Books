@@ -1,151 +1,174 @@
 .product{
-    position: relative;
-    background: -webkit-linear-gradient(70deg, #468ea2, #043b35);;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 2px solid black;
-    border-radius: 10px;
-    height: 4rem;
-    margin: 10px;
+  position: relative;
+  display:flex;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-around;
+  border-radius: 6px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  box-shadow: 1px 1px 5px grey;
+  border-left: none;
+  border-right: none;
+  height: 5rem;
+  margin: 10px;
+  padding: 0.5rem;
 }
+.title{
+position: relative;
+bottom:1rem;
+right: 6rem;
+color:#468ea2;
+height: 2rem;
+font-weight: 200;
+font-size:200%;
+font-family:'Times New Roman', Times, serif;
+}
+
 .amount{
-    display: flex;
-    justify-content: space-around;
-    padding-top: 10px;
-    flex-direction: row;
-   
-    width: 6rem;
+  position: relative;
+  bottom: 5px;
+  right:15rem;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 30px;
+  flex-direction: row;
+  width: 8rem;
 }
 .number{
-    font-size: x-large;
-    margin: 10px;
+  font-size: x-large;
+  font-weight: 100;
+  margin: 10px;
+}
+.price{
+  margin-top: 2rem;
 }
 
 .remove{
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  font-size: x-large;
+  font-weight: 100;
 }
 .datos{
-    font-size:x-large;
-    color: #286879;
+  font-size:x-large;
+  color: #286879;
 }
 
 .button {
-    z-index: 1;
-    position: relative;
-    font-size: 18px;
-    background-color: #2e9caa;
-    height: 3rem;
-    width: 2rem;
-    border-radius: 4px;
-    transition: 500ms;
-    color: white;
-    border-radius: 5px;
-    overflow: hidden;
-}
-  
-.button::after {
-    content: '';
-    position: absolute;
-    width: 3rem;
-    height: 100%;
-    background: #285874;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    transition: transform 200ms ease-in;
-}
-.button::after {
-    transform: scaleX(0);
-    transform-origin: right;
-}
-.button:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+  z-index: 1;
+  position: relative;
+  top:5px;
+  font-size: 18px;
+  background-color:#77c9d4;
+  border: 1px solid #015249;
+  transition: 500ms;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2px;
+  transition: 500ms;
+  color: white;
+  overflow: hidden;
 }
 
-    /* ///////////////// */
+.button:hover{
+background-color:aquamarine;
+}
+
+  /* ///////////////// */
 
 .buttonX {
-        z-index: 1;
-        position: absolute;
-        top:9px;
-        right: 30px;
-        font-size: 18px;
-        background-color: #f00202;
-        color: white;
-        width: 6rem;
-        height: 3rem;
-        border-radius: 10px;
-        transition: 500ms;
-        overflow: hidden;
-        cursor: pointer;
-      }
-      
-      .buttonX::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: #285874;
-        z-index: -1;
-        top: 0;
-        left: 0;
-        transition: transform 200ms ease-in;
-      }
-      .buttonX::after {
-        transform: scaleX(0);
-        transform-origin: right;
-      }
-      .buttonX:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
+      z-index: 1;
+      position:absolute;
+      top:10px;
+      right: 10px;
+      font-size: 18px;
+      background-color: white;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 3px;
+      border: none;
+      transition: 100ms;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .buttonX::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: red;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      transition: transform 100ms ease-in;
+    }
+    .buttonX::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+    .buttonX:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
 
 .foot{
-    width: 80%;
-    position:relative;
-    left:15rem;
-    bottom: 60px;
-    margin:1rem;
+  display:flex;
+  width: 60%;
+  justify-content: space-around;
+  position:relative;
+  left:15rem;
+  bottom: 1rem;
+  margin:1rem;
 }
 .empity{
-    position: absolute;
-    top: 30%;
-    left:30%;
-    color:#285874
+  position: absolute;
+  top: 30%;
+  left:30%;
+  color:#285874
 }
 
 .buy {
-    z-index: 1;
-    position: relative;
-    font-size: 18px;
-    background-color: #2e9caa;
-    height: 3rem;
-    border-radius: 4px;
-    transition: 500ms;
-    color: white;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .buy::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #285874;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    transition: transform 200ms ease-in;
-  }
-  .buy::after {
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-  .buy:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
+  z-index: 1;
+  position: relative;
+  font-weight: 100;
+  border: 1px solid white;
+  background-color: #2e9caa;
+  height: 3rem;
+  border-radius: 4px;
+  transition: 500ms;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.buy::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #285874;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transition: transform 200ms ease-in;
+}
+.buy::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.buy:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.total{
+  position: relative;
+  left:52rem;
+  bottom:2rem;
+  font-size:x-large;
+}
+
+.Link{
+text-decoration: none;
+}  

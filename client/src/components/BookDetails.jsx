@@ -280,6 +280,7 @@ export default function BookDetails() {
       </div>
       {comments.map((e) => {
         if (e.users.length > 0) {
+          if (e.isHidden===false){
           return (
             <div className={styles.commentContainer}>
               {e.users[0]._id === usuario[0]?._id ? (
@@ -295,7 +296,7 @@ export default function BookDetails() {
               <span>{e.createdAt?.slice(0, 10)}</span>
               <p>{e.comment}</p>
             </div>
-          )
+          )}
         }
       })}
       <div className={styles.space} />
